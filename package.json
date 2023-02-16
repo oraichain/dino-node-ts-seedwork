@@ -1,0 +1,51 @@
+{
+  "name": "node-ts-seedwork",
+  "version": "1.0.0",
+  "description": "Node typescript seedwork",
+  "main": "./dist/index.js",
+  "author": "tuancaurao <tuan.pt@orai.io>",
+  "license": "MIT",
+  "types": "dist/_types",
+  "keywords": [
+    "ddd",
+    "utils"
+  ],
+  "scripts": {
+    "build": "tsc --declaration"
+  },
+  "dependencies": {
+    "decimal.js": "^10.4.3",
+    "dotenv": "^16.0.2",
+    "got": "11.8.3",
+    "helmet": "^6.0.0",
+    "http-status": "^1.5.2",
+    "morgan": "^1.10.0",
+    "nanoid": "^3.3.4",
+    "oxide.ts": "^1.1.0",
+    "reflect-metadata": "^0.1.13",
+    "shallow-equal-object": "^1.1.1",
+    "typeorm": "0.3.7",
+    "uuid": "^8.3.2",
+    "winston": "^3.8.1",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "@types/compression": "^1.7.2",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/got": "^9.6.12",
+    "@types/jest": "^29.0.0",
+    "@types/morgan": "^1.9.3",
+    "@types/node": "^18.7.14",
+    "@types/uuid": "^8.3.4",
+    "@typescript-eslint/eslint-plugin": "5.52.0",
+    "@typescript-eslint/parser": "5.52.0",
+    "eslint": "^7.30.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.2",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.0",
+    "typescript": "4.9.5"
+  }
+}
