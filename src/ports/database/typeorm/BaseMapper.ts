@@ -17,16 +17,17 @@ export interface EntityProps<IdentifierType extends Identifier<any>> {
 }
 
 export abstract class OrmMapper<
-  IdentifierType extends Identifier<any>,
+  IdentifierRawType extends string | number,
+  IdentifierType extends Identifier<IdentifierRawType>,
   Entity extends AggregateRoot<IdentifierType>,
-  OrmEntity
+  OrmEntity extends TypeormEntityBase<IdentifierRawType>
 > {
   constructor(
     private entityConstructor: new (
       props: CreateEntityProps<IdentifierType>
     ) => Entity,
     private ormEntityConstructor: new (props: any) => OrmEntity
-  ) {}
+  ) { }
 
   protected abstract toDomainProps(
     ormEntity: OrmEntity
@@ -38,8 +39,8 @@ export abstract class OrmMapper<
 
   async toDomainEntity(ormEntity: OrmEntity): Promise<Entity> {
     const { id, ...props } = await this.toDomainProps(ormEntity);
-    const ormEntityBase: TypeormEntityBase =
-      ormEntity as unknown as TypeormEntityBase;
+    const ormEntityBase: TypeormEntityBase<IdentifierRawType> =
+      ormEntity as unknown as TypeormEntityBase<IdentifierRawType>;
     return new this.entityConstructor({
       id,
       ...props,

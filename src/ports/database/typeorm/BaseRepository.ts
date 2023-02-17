@@ -25,16 +25,17 @@ export type WhereCondition<OrmEntity> =
   | string;
 
 export abstract class TypeormRepositoryBase<
-  IdentifierType extends Identifier<any>,
+  IdentifierRawType extends string | number,
+  IdentifierType extends Identifier<IdentifierRawType>,
   Entity extends AggregateRoot<IdentifierType>,
-  OrmEntity extends TypeormEntityBase
+  OrmEntity extends TypeormEntityBase<IdentifierRawType>
 > implements RepositoryPort<Entity>
 {
   protected constructor(
     protected readonly repository: Repository<OrmEntity>,
-    protected readonly mapper: OrmMapper<IdentifierType, Entity, OrmEntity>,
+    protected readonly mapper: OrmMapper<IdentifierRawType, IdentifierType, Entity, OrmEntity>,
     protected readonly logger: Logger
-  ) {}
+  ) { }
 
   /**
    * Specify relations to other tables.
@@ -113,7 +114,7 @@ export abstract class TypeormRepositoryBase<
 
   async findOneByIdOrThrow(id: IdentifierType): Promise<Entity> {
     const found = await this.repository.findOne({
-      // @ts-ignore: Unreachable code error
+      // @ts-ignore
       where: { id: id.toValue() },
     });
     if (!found) {
