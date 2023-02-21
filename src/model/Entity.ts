@@ -1,4 +1,4 @@
-import { AssertionConcern } from "src/logic/AssertionConcern";
+import { AssertionConcern } from "src/logic";
 import { Identifier } from "./Identifier";
 import { DateVO } from "./valueObjects/Date";
 

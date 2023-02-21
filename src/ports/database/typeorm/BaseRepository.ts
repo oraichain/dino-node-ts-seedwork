@@ -33,9 +33,14 @@ export abstract class TypeormRepositoryBase<
 {
   protected constructor(
     protected readonly repository: Repository<OrmEntity>,
-    protected readonly mapper: OrmMapper<IdentifierRawType, IdentifierType, Entity, OrmEntity>,
+    protected readonly mapper: OrmMapper<
+      IdentifierRawType,
+      IdentifierType,
+      Entity,
+      OrmEntity
+    >,
     protected readonly logger: Logger
-  ) { }
+  ) {}
 
   /**
    * Specify relations to other tables.

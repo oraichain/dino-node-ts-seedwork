@@ -1,6 +1,6 @@
 {
   "name": "dino-node-ts-seedwork",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Node typescript seedwork",
   "main": "./dist/index.js",
   "author": "tuancaurao <tuan.pt@orai.io>",
@@ -10,11 +10,16 @@
     "ddd",
     "utils"
   ],
+  "files": [
+    "dist",
+    "tsconfig.json"
+  ],
   "scripts": {
-    "build": "tsc --declaration",
+    "build": "tsc",
     "publish": "yarn publish",
     "prepare": "yarn build",
-    "lint": "tslint -p tsconfig.json",
+    "lint": "eslint . --ext .ts",
+    "lint-fix": "eslint . --ext .ts --fix",
     "test": "jest --config jestconfig.json",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
