@@ -1,11 +1,11 @@
 {
   "name": "dino-node-ts-seedwork",
-  "version": "1.0.2",
+  "version": "1.0.7",
   "description": "Node typescript seedwork",
-  "main": "./dist/index.js",
+  "main": "dist/src/index.js",
   "author": "tuancaurao <tuan.pt@orai.io>",
   "license": "MIT",
-  "types": "dist/_types",
+  "types": "dist/src/index.d.ts",
   "keywords": [
     "ddd",
     "utils"
@@ -15,8 +15,9 @@
     "tsconfig.json"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
     "publish": "yarn publish",
+    "trace-resolution": "tsc --traceResolution",
     "prepare": "yarn build",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
@@ -27,8 +28,8 @@
     "postversion": "git push && git push --tags"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./ports/database/*": "./dist/ports/database/*"
+    ".": "./index.js",
+    "./ports/database/*": "./ports/database/*"
   },
   "dependencies": {
     "decimal.js": "^10.4.3",
@@ -65,7 +66,9 @@
     "prettier": "^2.3.2",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
+    "tsc-alias": "^1.8.2",
     "tsconfig-paths": "^4.1.0",
-    "typescript": "4.9.5"
+    "typescript": "4.9.5",
+    "typescript-transform-paths": "^3.4.6"
   }
 }

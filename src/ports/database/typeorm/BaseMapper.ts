@@ -1,10 +1,10 @@
 /* eslint-disable new-cap */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Identifier } from "src/model";
-import { AggregateRoot } from "src/model/Aggregate";
-import { CreateEntityProps } from "src/model/Entity";
-import { DateVO } from "src/model/valueObjects/Date";
+import { Identifier } from "@model/Identifier";
+import { AggregateRoot } from "@model/Aggregate";
+import { CreateEntityProps } from "@model/Entity";
+import { DateVO } from "@model/valueObjects/Date";
 import { TypeormEntityBase } from "./BaseEntity";
 
 export type OrmEntityProps<OrmEntity> = Omit<
@@ -27,7 +27,7 @@ export abstract class OrmMapper<
       props: CreateEntityProps<IdentifierType>
     ) => Entity,
     private ormEntityConstructor: new (props: any) => OrmEntity
-  ) {}
+  ) { }
 
   protected abstract toDomainProps(
     ormEntity: OrmEntity

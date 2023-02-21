@@ -1,4 +1,4 @@
-import { UnitOfWorkPort } from "src/ports/uow";
+import { UnitOfWorkPort } from "@ports/uow";
 import { Command } from "./BaseCommand";
 
 export abstract class CommandHandlerBase<CommandHandlerReturnType = unknown> {
@@ -6,9 +6,8 @@ export abstract class CommandHandlerBase<CommandHandlerReturnType = unknown> {
 }
 
 export abstract class UowCommandHandlerBase<CommandHandlerReturnType = unknown>
-  implements CommandHandlerBase
-{
-  constructor(protected readonly unitOfWork: UnitOfWorkPort) {}
+  implements CommandHandlerBase {
+  constructor(protected readonly unitOfWork: UnitOfWorkPort) { }
 
   // Forces all command handlers to implement a handle method
   abstract handle(command: Command): Promise<CommandHandlerReturnType>;

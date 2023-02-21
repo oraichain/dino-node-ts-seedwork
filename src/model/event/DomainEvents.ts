@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { DomainEvent, DomainEventHandler } from ".";
-import { Logger } from "src/ports/Logger";
+import { Logger } from "@ports/Logger";
 import { AggregateRoot } from "../Aggregate";
-import { final } from "src/logic/decorators/final";
+import { final } from "@logic/decorators/final";
 import { Identifier } from "../Identifier";
 
 type EventName = string;

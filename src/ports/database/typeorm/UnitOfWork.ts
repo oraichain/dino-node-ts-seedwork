@@ -1,8 +1,8 @@
 import { DataSource, EntityTarget, QueryRunner, Repository } from "typeorm";
 import { IsolationLevel } from "typeorm/driver/types/IsolationLevel";
 import { Err, Result } from "oxide.ts/dist";
-import { Logger } from "src/ports/Logger";
-import { UnitOfWorkPort } from "src/ports/uow";
+import { Logger } from "@ports/Logger";
+import { UnitOfWorkPort } from "@ports/uow";
 
 /**
  * Keep in mind that this is a naive implementation
@@ -20,7 +20,7 @@ export class TypeormUnitOfWork implements UnitOfWorkPort {
   constructor(
     private readonly logger: Logger,
     private readonly datasource: DataSource
-  ) {}
+  ) { }
 
   private queryRunners: Map<string, QueryRunner> = new Map();
 

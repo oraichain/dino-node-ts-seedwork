@@ -9,13 +9,13 @@ import {
   FindManyPaginatedParams,
   RepositoryPort,
   DataWithPaginationMeta,
-} from "src/ports/Repository";
-import { DomainEvents } from "src/model/event/DomainEvents";
-import { Logger } from "src/ports/Logger";
+} from "@ports/Repository";
+import { DomainEvents } from "@model/event/DomainEvents";
+import { Logger } from "@ports/Logger";
 import { OrmMapper } from "./BaseMapper";
-import { AggregateRoot } from "src/model/Aggregate";
-import { Identifier } from "src/model";
-import { NotFoundException } from "src/logic/exceptions";
+import { AggregateRoot } from "@model/Aggregate";
+import { Identifier } from "@model/Identifier";
+import { NotFoundException } from "@logic/exceptions";
 import { TypeormEntityBase } from "./BaseEntity";
 
 export type WhereCondition<OrmEntity> =
@@ -40,7 +40,7 @@ export abstract class TypeormRepositoryBase<
       OrmEntity
     >,
     protected readonly logger: Logger
-  ) {}
+  ) { }
 
   /**
    * Specify relations to other tables.

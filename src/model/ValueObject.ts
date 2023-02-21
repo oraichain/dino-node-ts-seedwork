@@ -3,8 +3,8 @@
  * equality through their structrual property.
  */
 
-import { AssertionConcern } from "src/logic/AssertionConcern";
-import { ExcludeFunctionProps } from "src/types/ExcludeFunctionProps";
+import { AssertionConcern } from "@logic/AssertionConcern";
+import { ExcludeFunctionProps } from "@type_util/ExcludeFunctionProps";
 
 export type ValueObjectProps<T> = ExcludeFunctionProps<T>;
 

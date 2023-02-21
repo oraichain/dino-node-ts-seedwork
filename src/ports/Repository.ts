@@ -5,7 +5,7 @@
     in a respective module/use case.
 */
 
-import { Identifier } from "src/model";
+import { Identifier } from "@model/Identifier";
 
 export type QueryParams = any;
 
@@ -68,12 +68,12 @@ export interface DeleteOne<Entity> {
 
 export interface RepositoryPort<Entity>
   extends Save<Entity>,
-    FindOne<Entity>,
-    FindOneById<Entity>,
-    FindMany<Entity>,
-    Add<Entity>,
-    FindManyPaginated<Entity>,
-    DeleteOne<Entity>,
-    SaveMultiple<Entity> {
+  FindOne<Entity>,
+  FindOneById<Entity>,
+  FindMany<Entity>,
+  Add<Entity>,
+  FindManyPaginated<Entity>,
+  DeleteOne<Entity>,
+  SaveMultiple<Entity> {
   setCorrelationId?(correlationId: string): this;
 }

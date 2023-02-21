@@ -1,4 +1,4 @@
-import { IllegalArgumentException } from "src/logic/exceptions";
+import { IllegalArgumentException } from "@logic/exceptions";
 import { ValueObject } from "../ValueObject";
 
 export class DateVO extends ValueObject {

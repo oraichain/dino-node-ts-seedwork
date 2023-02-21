@@ -1,7 +1,7 @@
-import { UUID } from "src/model";
+import { AssertionConcern } from "@logic/AssertionConcern";
+import { UUID } from "@model/valueObjects";
+import { ExcludeFunctionProps } from "@type_util/ExcludeFunctionProps";
 import { nanoid } from "nanoid";
-import { AssertionConcern } from "src/logic/AssertionConcern";
-import { ExcludeFunctionProps } from "src/types/ExcludeFunctionProps";
 
 export type CommandProps<T> = Omit<
   ExcludeFunctionProps<T>,

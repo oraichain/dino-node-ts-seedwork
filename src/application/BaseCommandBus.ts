@@ -1,4 +1,4 @@
-import { Class } from "src/types/Class";
+import { Class } from "@type_util/Class";
 import { Command } from "./BaseCommand";
 import { CommandHandlerBase } from "./BaseCommandHandler";
 

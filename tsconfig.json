@@ -4,13 +4,31 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "pretty": true,
-    "rootDir": ".",
-    "baseUrl": ".",
+    "rootDir": "src",
+    "baseUrl": "src",
     "sourceMap": true,
     "target": "es2019",
     "outDir": "./dist",
     "declaration": true,
-    "declarationDir": "dist/_types",
+    "declarationMap": true,
+    // "declarationDir": "dist/_types",
+    "paths": {
+      "@application/*": [
+        "application/*"
+      ],
+      "@logic/*": [
+        "logic/*"
+      ],
+      "@model/*": [
+        "model/*"
+      ],
+      "@ports/*": [
+        "ports/*"
+      ],
+      "@type_util/*": [
+        "types/*"
+      ]
+    },
     "lib": [
       "es2019"
     ],
@@ -30,8 +48,7 @@
     "skipLibCheck": true
   },
   "include": [
-    "./**/*.js",
-    "./**/*.ts"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",

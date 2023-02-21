@@ -1,4 +1,4 @@
-import { AssertionConcern } from "src/logic/AssertionConcern";
+import { AssertionConcern } from "@logic/AssertionConcern";
 import { UUID } from "../valueObjects/UUID";
 
 export type DomainEventProps<T> = Omit<
