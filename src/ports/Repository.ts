@@ -68,12 +68,12 @@ export interface DeleteOne<Entity> {
 
 export interface RepositoryPort<Entity>
   extends Save<Entity>,
-  FindOne<Entity>,
-  FindOneById<Entity>,
-  FindMany<Entity>,
-  Add<Entity>,
-  FindManyPaginated<Entity>,
-  DeleteOne<Entity>,
-  SaveMultiple<Entity> {
+    FindOne<Entity>,
+    FindOneById<Entity>,
+    FindMany<Entity>,
+    Add<Entity>,
+    FindManyPaginated<Entity>,
+    DeleteOne<Entity>,
+    SaveMultiple<Entity> {
   setCorrelationId?(correlationId: string): this;
 }

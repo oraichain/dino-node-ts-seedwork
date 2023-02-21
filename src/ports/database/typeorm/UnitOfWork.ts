@@ -20,7 +20,7 @@ export class TypeormUnitOfWork implements UnitOfWorkPort {
   constructor(
     private readonly logger: Logger,
     private readonly datasource: DataSource
-  ) { }
+  ) {}
 
   private queryRunners: Map<string, QueryRunner> = new Map();
 

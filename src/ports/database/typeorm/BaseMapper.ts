@@ -27,7 +27,7 @@ export abstract class OrmMapper<
       props: CreateEntityProps<IdentifierType>
     ) => Entity,
     private ormEntityConstructor: new (props: any) => OrmEntity
-  ) { }
+  ) {}
 
   protected abstract toDomainProps(
     ormEntity: OrmEntity

@@ -40,7 +40,7 @@ export abstract class TypeormRepositoryBase<
       OrmEntity
     >,
     protected readonly logger: Logger
-  ) { }
+  ) {}
 
   /**
    * Specify relations to other tables.
