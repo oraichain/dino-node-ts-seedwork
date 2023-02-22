@@ -21,7 +21,11 @@ export abstract class Entity<
   }
 
   id() {
-    return this._id?.toValue?.();
+    return this._id;
+  }
+
+  rawId() {
+    return this.id().toValue();
   }
 
   public getUpdatedAt(): DateVO | null {

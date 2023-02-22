@@ -1,6 +1,6 @@
 {
   "name": "dino-node-ts-seedwork",
-  "version": "1.0.10",
+  "version": "1.0.13",
   "description": "Node typescript seedwork",
   "main": "dist/index.js",
   "author": "tuancaurao <tuan.pt@orai.io>",

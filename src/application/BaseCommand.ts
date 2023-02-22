@@ -1,15 +1,7 @@
 import { AssertionConcern } from "@logic/AssertionConcern";
-import { UUID } from "@model/valueObjects";
-import { ExcludeFunctionProps } from "@type_util/ExcludeFunctionProps";
 import { nanoid } from "nanoid";
 
-export type CommandProps<T> = Omit<
-  ExcludeFunctionProps<T>,
-  "correlationId" | "id" | ""
-> &
-  Partial<Command>;
-
-export class Command extends AssertionConcern {
+export class Command<Props> extends AssertionConcern {
   /**
    * Command id, in case if we want to save it
    * for auditing purposes and create a correlation/causation chain
@@ -25,14 +17,16 @@ export class Command extends AssertionConcern {
    */
   public readonly causationId?: string;
 
-  constructor(props: CommandProps<unknown>) {
+  public readonly props: Props;
+
+  constructor(props: Props, correlationId?: string) {
     super();
     this.assertArgumentNotNull({
       aValue: props,
       aMessage: "Command props should not be empty",
       loc: ["command"],
     });
-    this.correlationId = props.correlationId || nanoid(8);
-    this.id = props.id || UUID.generate().toValue();
+    this.correlationId = correlationId || nanoid(8);
+    this.props = props;
   }
 }

@@ -2,17 +2,22 @@ import { Class } from "@type_util/Class";
 import { Command } from "./BaseCommand";
 import { CommandHandlerBase } from "./BaseCommandHandler";
 
-type HandlerFactory = () => CommandHandlerBase;
+interface HandlerFactory {
+  <CommandProps, ReturnType>(): CommandHandlerBase<CommandProps, ReturnType>;
+}
 
 export class CommandBus {
   private commandMap: Map<string, HandlerFactory> = new Map();
 
-  public registerCommand =
-    (commandCls: Class<Command>) => (handlerFactory: HandlerFactory) => {
+  public registerCommand<CommandProps>(
+    commandCls: Class<Command<CommandProps>>
+  ) {
+    return (handlerFactory: HandlerFactory) => {
       this.commandMap.set(commandCls.name, handlerFactory);
     };
+  }
 
-  public execute(command: Command) {
+  public execute<CommandProps>(command: Command<CommandProps>) {
     const handlerFactory = this.commandMap.get(command.constructor.name);
     if (handlerFactory == null) {
       return null;

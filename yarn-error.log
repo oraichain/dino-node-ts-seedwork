@@ -2,7 +2,7 @@ Arguments:
   /Users/oraichaintuancaurao/.nvm/versions/node/v16.10.0/bin/node /Users/oraichaintuancaurao/.nvm/versions/node/v16.10.0/bin/yarn publish
 
 PATH: 
-  /var/folders/yb/hynzyv4x05sg5mzp8jbsp5x00000gn/T/yarn--1676955917937-0.9284814418167271:/Users/oraichaintuancaurao/Documents/Code/Orai/node-ts-seedwork/node_modules/.bin:/Users/oraichaintuancaurao/.config/yarn/link/node_modules/.bin:/Users/oraichaintuancaurao/.nvm/versions/node/v16.10.0/libexec/lib/node_modules/npm/bin/node-gyp-bin:/Users/oraichaintuancaurao/.nvm/versions/node/v16.10.0/lib/node_modules/npm/bin/node-gyp-bin:/Users/oraichaintuancaurao/.nvm/versions/node/v16.10.0/bin/node_modules/npm/bin/node-gyp-bin:/opt/homebrew/opt/openssl@3/bin:/Users/oraichaintuancaurao/.pyenv/shims:/Users/oraichaintuancaurao/.poetry/bin:/Users/oraichaintuancaurao/.nvm/versions/node/v16.10.0/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/opt/openssl@3/bin:/Users/oraichaintuancaurao/.poetry/bin:/Users/oraichaintuancaurao/.nvm/versions/node/v16.10.0/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/oraichaintuancaurao/.cargo/bin:/Users/oraichaintuancaurao/.yarn/bin:/usr/local/opt/python/libexec/bin:/Users/oraichaintuancaurao/bin:/snap/bin://Users/oraichaintuancaurao/.local/bin:/Users/oraichaintuancaurao/Documents/Code/sonar-scanner/bin:/Users/oraichaintuancaurao/.yarn/bin:/usr/local/opt/python/libexec/bin:/Users/oraichaintuancaurao/bin:/snap/bin:/Users/oraichaintuancaurao/.cargo/bin://Users/oraichaintuancaurao/.local/bin:/Users/oraichaintuancaurao/Documents/Code/sonar-scanner/bin
+  /var/folders/yb/hynzyv4x05sg5mzp8jbsp5x00000gn/T/yarn--1677040475417-0.04496574897882133:/Users/oraichaintuancaurao/Documents/Code/Orai/node-ts-seedwork/node_modules/.bin:/Users/oraichaintuancaurao/.config/yarn/link/node_modules/.bin:/Users/oraichaintuancaurao/.nvm/versions/node/v16.10.0/libexec/lib/node_modules/npm/bin/node-gyp-bin:/Users/oraichaintuancaurao/.nvm/versions/node/v16.10.0/lib/node_modules/npm/bin/node-gyp-bin:/Users/oraichaintuancaurao/.nvm/versions/node/v16.10.0/bin/node_modules/npm/bin/node-gyp-bin:/opt/homebrew/opt/openssl@3/bin:/Users/oraichaintuancaurao/.pyenv/shims:/Users/oraichaintuancaurao/.poetry/bin:/Users/oraichaintuancaurao/.nvm/versions/node/v16.10.0/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/opt/openssl@3/bin:/Users/oraichaintuancaurao/.poetry/bin:/Users/oraichaintuancaurao/.nvm/versions/node/v16.10.0/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/oraichaintuancaurao/.cargo/bin:/Users/oraichaintuancaurao/.yarn/bin:/usr/local/opt/python/libexec/bin:/Users/oraichaintuancaurao/bin:/snap/bin://Users/oraichaintuancaurao/.local/bin:/Users/oraichaintuancaurao/Documents/Code/sonar-scanner/bin:/Users/oraichaintuancaurao/.yarn/bin:/usr/local/opt/python/libexec/bin:/Users/oraichaintuancaurao/bin:/snap/bin:/Users/oraichaintuancaurao/.cargo/bin://Users/oraichaintuancaurao/.local/bin:/Users/oraichaintuancaurao/Documents/Code/sonar-scanner/bin
 
 Yarn version: 
   1.22.19
@@ -29,7 +29,7 @@ Trace:
 npm manifest: 
   {
     "name": "dino-node-ts-seedwork",
-    "version": "1.0.10",
+    "version": "1.0.13",
     "description": "Node typescript seedwork",
     "main": "dist/index.js",
     "author": "tuancaurao <tuan.pt@orai.io>",
