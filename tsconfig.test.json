@@ -1,0 +1,57 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "pretty": true,
+    "rootDir": "src",
+    "baseUrl": "src",
+    "sourceMap": true,
+    "target": "es2019",
+    "declaration": true,
+    "declarationMap": true,
+    // "declarationDir": "dist/_types",
+    "paths": {
+      "@application/*": [
+        "application/*"
+      ],
+      "@logic/*": [
+        "logic/*"
+      ],
+      "@model/*": [
+        "model/*"
+      ],
+      "@ports/*": [
+        "ports/*"
+      ],
+      "@type_util/*": [
+        "types/*"
+      ]
+    },
+    "lib": [
+      "es2019"
+    ],
+    "resolveJsonModule": true,
+    "types": [
+      "node",
+      "jest",
+      "reflect-metadata"
+    ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./@types"
+    ],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/**/*",
+    "__test__/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "./dist"
+  ]
+}
