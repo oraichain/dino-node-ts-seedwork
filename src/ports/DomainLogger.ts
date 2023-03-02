@@ -12,7 +12,9 @@ export class ConsoleDomainLogger implements BaseLogger {
   }
 
   error(message: string, trace?: unknown, ...meta: unknown[]): void {
-    console.error(`${this.formatMessageWithContext(message)} ${trace || '[No trace info]'}`);
+    console.error(
+      `${this.formatMessageWithContext(message)} ${trace || "[No trace info]"}`
+    );
   }
 
   warn(message: string, ...meta: unknown[]): void {
@@ -28,6 +30,6 @@ export class ConsoleDomainLogger implements BaseLogger {
   }
 
   context() {
-    return this._context
+    return this._context;
   }
 }

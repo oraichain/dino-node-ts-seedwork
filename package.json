@@ -1,6 +1,6 @@
 {
   "name": "dino-node-ts-seedwork",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "Node typescript seedwork",
   "main": "dist/index.js",
   "author": "tuancaurao <tuan.pt@orai.io>",
@@ -21,7 +21,7 @@
     "prepare": "yarn build",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
-    "test": "jest --config jestconfig.json",
+    "test": "jest --config jest.config.js",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "version": "git add -A src",
@@ -32,6 +32,9 @@
     "./dist/ports/database/*": "./ports/database/*"
   },
   "dependencies": {
+    "@types/amqplib": "^0.10.1",
+    "amqp-connection-manager": "^4.1.11",
+    "amqplib": "^0.10.3",
     "decimal.js": "^10.4.3",
     "dotenv": "^16.0.2",
     "got": "11.8.3",

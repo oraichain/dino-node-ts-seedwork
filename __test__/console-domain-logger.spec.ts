@@ -1,4 +1,4 @@
-import { ConsoleDomainLogger } from "../src/ports"
+import { ConsoleDomainLogger } from "src"
 
 describe("Test ConsoleDomainLogger", () => {
   let consoleDomainLogger = new ConsoleDomainLogger()

@@ -4,28 +4,27 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "pretty": true,
-    "rootDir": "src",
-    "baseUrl": "src",
+    "rootDir": ".",
+    "baseUrl": ".",
     "sourceMap": true,
     "target": "es2019",
     "declaration": true,
     "declarationMap": true,
-    // "declarationDir": "dist/_types",
     "paths": {
       "@application/*": [
-        "application/*"
+        "src/application/*"
       ],
       "@logic/*": [
-        "logic/*"
+        "src/logic/*"
       ],
       "@model/*": [
-        "model/*"
+        "src/model/*"
       ],
       "@ports/*": [
-        "ports/*"
+        "src/ports/*"
       ],
       "@type_util/*": [
-        "types/*"
+        "src/types/*"
       ]
     },
     "lib": [
