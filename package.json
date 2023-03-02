@@ -1,7 +1,8 @@
 {
   "name": "dino-node-ts-seedwork",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "Node typescript seedwork",
+  "homepage": "https://github.com/oraichain/dino-node-ts-seedwork",
   "main": "dist/index.js",
   "author": "tuancaurao <tuan.pt@orai.io>",
   "license": "MIT",
