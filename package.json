@@ -1,6 +1,6 @@
 {
   "name": "dino-node-ts-seedwork",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "Node typescript seedwork",
   "homepage": "https://github.com/oraichain/dino-node-ts-seedwork",
   "main": "dist/src/index.js",

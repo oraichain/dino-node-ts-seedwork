@@ -30,11 +30,11 @@ export class ExchangeListener {
   constructor(eventHandlingTracker: EventHandlingTracker) {
     this.logger = new ConsoleDomainLogger();
     this.logger.setContext(`ExchangeListener ${this.label}`);
-    this.eventHandlingTracker = eventHandlingTracker
+    this.eventHandlingTracker = eventHandlingTracker;
   }
 
   start() {
-    this.attachToQueue()
+    this.attachToQueue();
   }
 
   registerOnReady(cb: ArbFunction) {
