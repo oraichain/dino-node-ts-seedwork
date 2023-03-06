@@ -1,19 +1,20 @@
 {
   "name": "dino-node-ts-seedwork",
-  "version": "1.0.18",
+  "version": "1.0.26",
   "description": "Node typescript seedwork",
   "homepage": "https://github.com/oraichain/dino-node-ts-seedwork",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "author": "tuancaurao <tuan.pt@orai.io>",
   "license": "MIT",
-  "types": "dist/index.d.ts",
+  "types": "dist/src/index.d.ts",
   "keywords": [
     "ddd",
     "utils"
   ],
   "files": [
     "dist",
-    "tsconfig.json"
+    "tsconfig.json",
+    "README"
   ],
   "scripts": {
     "build": "rimraf dist && tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
@@ -29,8 +30,7 @@
     "postversion": "git push && git push --tags"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./dist/ports/database/*": "./ports/database/*"
+    ".": "./dist/src/index.js"
   },
   "dependencies": {
     "@types/amqplib": "^0.10.1",

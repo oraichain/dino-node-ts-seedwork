@@ -27,14 +27,14 @@ export class ExchangeListener {
 
   private onReady?: ArbFunction;
 
-  constructor() {
+  constructor(eventHandlingTracker: EventHandlingTracker) {
     this.logger = new ConsoleDomainLogger();
     this.logger.setContext(`ExchangeListener ${this.label}`);
+    this.eventHandlingTracker = eventHandlingTracker
   }
 
-  factory() {
-    this.attachToQueue();
-    return this;
+  start() {
+    this.attachToQueue()
   }
 
   registerOnReady(cb: ArbFunction) {

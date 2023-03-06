@@ -30,9 +30,9 @@ describe("Exchange Listener", () => {
     connectionSetting = connectionSetting;
     label = "MockListener";
     constructor() {
-      super();
-      this.factory();
-      this.eventHandlingTracker = new MockEventHandlingTracker();
+      const eventHandlingTracker = new MockEventHandlingTracker();
+      super(eventHandlingTracker);
+      this.start()
     }
 
     override exchangeName(): string {
