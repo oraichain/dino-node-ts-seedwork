@@ -1,4 +1,4 @@
-abstract class AbstractKeyValueRepository {
+export abstract class AbstractKeyValueRepository {
   protected _prefix: string;
 
   constructor(prefix: string) {
@@ -13,7 +13,7 @@ abstract class AbstractKeyValueRepository {
     key: string,
     value: string | number,
     expired_seconds?: number,
-  ): void;
+  ): Promise<void>;
 
-  public abstract get(key: string): string | number;
+  public abstract get(key: string): Promise<string | number>;
 }
