@@ -5,7 +5,7 @@ type RedisClient = ReturnType<typeof redis.createClient>;
 export class RedisKeyValueRepository extends AbstractKeyValueRepository {
   private redisClient: RedisClient;
 
-  constructor(redisClient: RedisClient, prefix: string) {
+  constructor(redisClient: RedisClient, prefix?: string) {
     super(prefix);
     this.redisClient = redisClient;
   }
@@ -15,7 +15,7 @@ export class RedisKeyValueRepository extends AbstractKeyValueRepository {
     port: number,
     username: string,
     password: string,
-    prefix: string,
+    prefix?: string,
   ) {
     const redisClient = redis.createClient({
       url: `redis://${username}:${password}@${host}:${port}`,
