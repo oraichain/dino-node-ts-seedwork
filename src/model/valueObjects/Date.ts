@@ -1,5 +1,5 @@
-import { IllegalArgumentException } from "@logic/exceptions";
-import { ValueObject } from "../ValueObject";
+import { IllegalArgumentException } from '@logic/exceptions';
+import { ValueObject } from '../ValueObject';
 
 export class DateVO extends ValueObject {
   value: Date;
@@ -25,8 +25,8 @@ export class DateVO extends ValueObject {
   private validate(value: Date): void {
     if (!(value instanceof Date) || Number.isNaN(value.getTime())) {
       throw IllegalArgumentException.factory({
-        message: "Invalid Date",
-        code: "INVALID_DATE",
+        message: 'Invalid Date',
+        code: 'INVALID_DATE',
       });
     }
   }

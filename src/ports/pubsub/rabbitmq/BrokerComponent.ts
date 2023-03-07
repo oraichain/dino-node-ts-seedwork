@@ -1,8 +1,8 @@
-import { FutureArbFnc } from "@type_util/function";
-import amqp from "amqp-connection-manager";
-import { IAmqpConnectionManager } from "amqp-connection-manager/dist/esm/AmqpConnectionManager";
-import { Channel, Connection } from "amqplib";
-import { ConnectionSettings } from "./ConnectionSetting";
+import { FutureArbFnc } from '@type_util/function';
+import amqp from 'amqp-connection-manager';
+import { IAmqpConnectionManager } from 'amqp-connection-manager/dist/esm/AmqpConnectionManager';
+import { Channel, Connection } from 'amqplib';
+import { ConnectionSettings } from './ConnectionSetting';
 
 export abstract class BrokerComponent {
   // My channel
@@ -57,7 +57,7 @@ export abstract class BrokerComponent {
       }
       this.setup(this.onSetupFinish);
     } else {
-      throw Error("[PARAM_NOT_VALID] Cannot initialize Broker component");
+      throw Error('[PARAM_NOT_VALID] Cannot initialize Broker component');
     }
   }
 
@@ -70,21 +70,21 @@ export abstract class BrokerComponent {
   }
 
   private factoryConnection(
-    aConnectionSettings: ConnectionSettings
+    aConnectionSettings: ConnectionSettings,
   ): Connection {
     const connectionMn = amqp.connect(aConnectionSettings.toUrl());
     this.connectionMn = connectionMn;
-    connectionMn.addListener("connect", () =>
-      this.onConnectionOpen(connectionMn)
+    connectionMn.addListener('connect', () =>
+      this.onConnectionOpen(connectionMn),
     );
-    connectionMn.addListener("connectFailed", (error: Error) => {
+    connectionMn.addListener('connectFailed', (error: Error) => {
       this.handleError(error);
     });
     return connectionMn.connection;
   }
 
   private onConnectionOpen(connectionMn: IAmqpConnectionManager) {
-    console.info("Connection open successfully");
+    console.info('Connection open successfully');
     this.openChannel(connectionMn);
   }
 
@@ -93,8 +93,8 @@ export abstract class BrokerComponent {
       const channelWrapper = connectionManager.createChannel({
         setup: this.onChannelOpened.bind(this),
       });
-      channelWrapper.on("close", this.onChannelClosed);
-      channelWrapper.addListener("error", (error: Error) => {
+      channelWrapper.on('close', this.onChannelClosed);
+      channelWrapper.addListener('error', (error: Error) => {
         this.handleError(error);
       });
     } catch (error) {

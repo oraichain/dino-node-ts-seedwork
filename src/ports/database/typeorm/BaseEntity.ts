@@ -1,5 +1,5 @@
-import { CreateDateColumn, UpdateDateColumn } from "typeorm";
-import { ColumnPrimaryKey } from "./columns";
+import { CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { ColumnPrimaryKey } from './columns';
 
 export abstract class TypeormEntityBase<RawIdentityType> {
   constructor(props?: unknown) {
@@ -11,13 +11,13 @@ export abstract class TypeormEntityBase<RawIdentityType> {
   id: RawIdentityType;
 
   @CreateDateColumn({
-    type: "timestamptz",
+    type: 'timestamptz',
     update: false,
   })
   createdAt: Date;
 
   @UpdateDateColumn({
-    type: "timestamptz",
+    type: 'timestamptz',
   })
   updatedAt: Date;
 }

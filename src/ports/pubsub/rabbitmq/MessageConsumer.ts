@@ -1,8 +1,8 @@
-import { BaseException } from "@logic/exceptions";
-import { ConsoleDomainLogger } from "@ports/DomainLogger";
-import { Channel, Message } from "amqplib";
-import { MessageListener } from "./MessageListener";
-import { Queue } from "./Queue";
+import { BaseException } from '@logic/exceptions';
+import { ConsoleDomainLogger } from '@ports/DomainLogger';
+import { Channel, Message } from 'amqplib';
+import { MessageListener } from './MessageListener';
+import { Queue } from './Queue';
 
 export class MessageConsumer {
   private _autoAcknowled: boolean;
@@ -34,7 +34,7 @@ export class MessageConsumer {
     aQueue: Queue,
     isAutoAcknowledge: boolean,
     isRetry = false,
-    label = ""
+    label = '',
   ) {
     this.setQueue(aQueue);
     this.setAutoAck(isAutoAcknowledge);
@@ -49,13 +49,13 @@ export class MessageConsumer {
     queue: Queue,
     isAutoAcknowledge = false,
     isRetry = false,
-    label = ""
+    label = '',
   ) {
     const consumer = new MessageConsumer(
       queue,
       isAutoAcknowledge,
       isRetry,
-      label
+      label,
     );
     await consumer.equalizeMessageDistribution();
     return consumer;
@@ -131,7 +131,7 @@ export class MessageConsumer {
       this.logger.info(`QOS set to: ${this._prefetchCount}`);
       this.setIsReady(true);
     } catch (error) {
-      throw new BaseException({ code: "MESSAGE_EQUALIZE_PREFETCH" });
+      throw new BaseException({ code: 'MESSAGE_EQUALIZE_PREFETCH' });
     }
   }
 
@@ -151,7 +151,7 @@ export class MessageConsumer {
       if (!this.isAutoAcknowledge()) {
         channel.ack(message, false);
         this.logger.info(
-          `ACK handle messsage success [content] ${message.content}`
+          `ACK handle messsage success [content] ${message.content}`,
         );
       }
     } catch (error) {
@@ -174,7 +174,7 @@ export class MessageConsumer {
     channel: Channel,
     message: Message,
     isRetry: boolean,
-    exception: BaseException
+    exception: BaseException,
   ) {
     this.logger.info(`Exception on handle delivery ${exception.getMessage()}`);
     this.nak(channel, message, isRetry);
@@ -182,7 +182,7 @@ export class MessageConsumer {
 
   private async handleDelivery(
     message: Message,
-    aMessageListener: MessageListener
+    aMessageListener: MessageListener,
   ) {
     const channel = this.queue().getChannel();
     try {
@@ -197,7 +197,7 @@ export class MessageConsumer {
         message.properties.timestamp,
         message.content,
         message.fields.deliveryTag,
-        message.fields.redelivered
+        message.fields.redelivered,
       );
       this.ack(channel, message);
     } catch (error) {
@@ -206,9 +206,9 @@ export class MessageConsumer {
         message,
         this.isRetry(),
         new BaseException({
-          code: "HANDLE_DELIVERY_EXCEPTION",
+          code: 'HANDLE_DELIVERY_EXCEPTION',
           message: error.toString(),
-        })
+        }),
       );
     }
   }
@@ -224,16 +224,16 @@ export class MessageConsumer {
         this.queue().getName(),
         async (message) => {
           return await this.handleDelivery(message, aMessageListener);
-        }
+        },
       );
       this.logger.info(
-        `Register message listener success with [queue] ${this.queue().getName()}`
+        `Register message listener success with [queue] ${this.queue().getName()}`,
       );
-      channel.addListener("cancel", this.onConsumerCancelled);
+      channel.addListener('cancel', this.onConsumerCancelled);
       this.setTag(tag.consumerTag);
       this.setIsConsuming(true);
     } catch (error) {
-      throw new BaseException({ code: "INITIATE_CONSUMER_FAILED" });
+      throw new BaseException({ code: 'INITIATE_CONSUMER_FAILED' });
     }
   }
 
@@ -246,7 +246,7 @@ export class MessageConsumer {
 
   private async onConsumerCancelled(methodFrame: any) {
     this.logger.info(
-      `Consumer was cancelled remotely, shutting down: ${methodFrame}`
+      `Consumer was cancelled remotely, shutting down: ${methodFrame}`,
     );
     await this.closeChannel();
   }

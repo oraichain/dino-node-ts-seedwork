@@ -1,4 +1,4 @@
-import { ValueObject } from "./ValueObject";
+import { ValueObject } from './ValueObject';
 
 export class Identifier<T> extends ValueObject {
   constructor(private value: T) {

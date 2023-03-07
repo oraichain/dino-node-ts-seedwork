@@ -1,5 +1,11 @@
-import { assertArgumentNotNull, assertLargerThanOrEqual, assertStateFalse, assertStateTrue, BasicAssertParam, simpleHandleABoolean } from "./FunctionAssertionConcern";
-
+import {
+  assertArgumentNotNull,
+  assertLargerThanOrEqual,
+  assertStateFalse,
+  assertStateTrue,
+  BasicAssertParam,
+  simpleHandleABoolean,
+} from './FunctionAssertionConcern';
 
 export class AssertionConcern {
   public assertArgumentNotEmpty({
@@ -20,7 +26,7 @@ export class AssertionConcern {
     loc,
     code,
   }: { aValue: any } & BasicAssertParam) {
-    return assertArgumentNotNull({ aValue, aMessage, exception, loc, code })
+    return assertArgumentNotNull({ aValue, aMessage, exception, loc, code });
   }
 
   public assertStateTrue({
@@ -64,6 +70,6 @@ export class AssertionConcern {
       exception,
       loc,
       code,
-    })
+    });
   }
 }

@@ -1,14 +1,14 @@
-import { FutureArbFnc } from "@type_util/function";
-import { Replies } from "amqplib";
-import { BrokerComponent } from "./BrokerComponent";
-import { ConnectionSettings } from "./ConnectionSetting";
+import { FutureArbFnc } from '@type_util/function';
+import { Replies } from 'amqplib';
+import { BrokerComponent } from './BrokerComponent';
+import { ConnectionSettings } from './ConnectionSetting';
 
 export enum ExchangeType {
-  DIRECT = "direct",
-  TOPIC = "topic",
-  HEADERS = "headers",
-  FANOUT = "fanout",
-  MATCH = "match",
+  DIRECT = 'direct',
+  TOPIC = 'topic',
+  HEADERS = 'headers',
+  FANOUT = 'fanout',
+  MATCH = 'match',
 }
 
 export class Exchange extends BrokerComponent {
@@ -22,7 +22,7 @@ export class Exchange extends BrokerComponent {
     aType: ExchangeType,
     isDurable: boolean,
     onSetupFinish?: FutureArbFnc,
-    onSetupError?: FutureArbFnc
+    onSetupError?: FutureArbFnc,
   ) {
     super({
       init: { aConnectionSettings: aConnSettings, aName },
@@ -38,7 +38,7 @@ export class Exchange extends BrokerComponent {
     aName: string,
     isDurable: boolean,
     onSetupFinish?: FutureArbFnc,
-    onSetupError?: FutureArbFnc
+    onSetupError?: FutureArbFnc,
   ) {
     return new Exchange(
       aConnSettings,
@@ -46,14 +46,14 @@ export class Exchange extends BrokerComponent {
       ExchangeType.DIRECT,
       isDurable,
       onSetupFinish,
-      onSetupError
+      onSetupError,
     );
   }
 
   static async asyncDirectInstance(
     aConnSettings: ConnectionSettings,
     aName: string,
-    isDurable: boolean
+    isDurable: boolean,
   ) {
     const exchange: Exchange = await new Promise((resolve, reject) => {
       Exchange.directInstance(
@@ -65,7 +65,7 @@ export class Exchange extends BrokerComponent {
         },
         async (error) => {
           reject(error);
-        }
+        },
       );
     });
     return exchange;
@@ -76,7 +76,7 @@ export class Exchange extends BrokerComponent {
     aName: string,
     isDurable: boolean,
     onSetupFinish?: FutureArbFnc,
-    onSetupError?: FutureArbFnc
+    onSetupError?: FutureArbFnc,
   ) {
     return new Exchange(
       aConnSettings,
@@ -84,7 +84,7 @@ export class Exchange extends BrokerComponent {
       ExchangeType.FANOUT,
       isDurable,
       onSetupFinish,
-      onSetupError
+      onSetupError,
     );
   }
 
@@ -93,7 +93,7 @@ export class Exchange extends BrokerComponent {
     aName: string,
     isDurable: boolean,
     onSetupFinish?: FutureArbFnc,
-    onSetupError?: FutureArbFnc
+    onSetupError?: FutureArbFnc,
   ) {
     return new Exchange(
       aConnSettings,
@@ -101,7 +101,7 @@ export class Exchange extends BrokerComponent {
       ExchangeType.HEADERS,
       isDurable,
       onSetupFinish,
-      onSetupError
+      onSetupError,
     );
   }
 
@@ -112,7 +112,7 @@ export class Exchange extends BrokerComponent {
       this.exchangeType(),
       {
         durable: this.isDurable(),
-      }
+      },
     );
 
     console.info(`[EXCHANGE] declare exchange ${this.getName()} successfully`);

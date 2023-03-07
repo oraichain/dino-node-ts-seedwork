@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
-import { DomainEvent, DomainEventHandler } from ".";
-import { Logger } from "@ports/Logger";
-import { AggregateRoot } from "../Aggregate";
-import { final } from "@logic/decorators/final";
-import { Identifier } from "../Identifier";
+import { DomainEvent, DomainEventHandler } from '.';
+import { Logger } from '@ports/Logger';
+import { AggregateRoot } from '../Aggregate';
+import { final } from '@logic/decorators/final';
+import { Identifier } from '../Identifier';
 
 type EventName = string;
 
@@ -17,7 +17,7 @@ export class DomainEvents {
 
   public static subscribe<T extends DomainEventHandler>(
     event: DomainEventClass,
-    eventHandler: T
+    eventHandler: T,
   ): void {
     const eventName: EventName = event.name;
     if (!this.subscribers.has(eventName)) {
@@ -27,7 +27,7 @@ export class DomainEvents {
   }
 
   public static prepareForPublish(
-    aggregate: AggregateRoot<Identifier<any>>
+    aggregate: AggregateRoot<Identifier<any>>,
   ): void {
     const aggregateFound = !!this.findAggregateByID(aggregate.id());
     if (!aggregateFound) {
@@ -38,15 +38,15 @@ export class DomainEvents {
   public static async publishEvents(
     id: Identifier<any>,
     logger: Logger,
-    correlationId?: string
+    correlationId?: string,
   ): Promise<void> {
     const aggregate = this.findAggregateByID(id);
 
     if (aggregate) {
       logger.debug(
         `[${aggregate.domainEvents.map(
-          (event) => event.constructor.name
-        )}] published ${aggregate.id().toValue()}`
+          (event) => event.constructor.name,
+        )}] published ${aggregate.id().toValue()}`,
       );
       await Promise.all(
         aggregate.domainEvents.map((event: DomainEvent) => {
@@ -54,7 +54,7 @@ export class DomainEvents {
             event.correlationId = correlationId;
           }
           return this.publish(event, logger);
-        })
+        }),
       );
       aggregate.clearEvents();
       this.removeAggregateFromPublishList(aggregate);
@@ -62,7 +62,7 @@ export class DomainEvents {
   }
 
   private static findAggregateByID(
-    id: Identifier<any>
+    id: Identifier<any>,
   ): AggregateRoot<Identifier<any>> | undefined {
     for (const aggregate of this.aggregates) {
       if (aggregate.id().equals(id)) {
@@ -72,7 +72,7 @@ export class DomainEvents {
   }
 
   private static removeAggregateFromPublishList(
-    aggregate: AggregateRoot<Identifier<any>>
+    aggregate: AggregateRoot<Identifier<any>>,
   ): void {
     const index = this.aggregates.findIndex((a) => a.equals(aggregate));
     this.aggregates.splice(index, 1);
@@ -80,7 +80,7 @@ export class DomainEvents {
 
   private static async publish(
     event: DomainEvent,
-    logger: Logger
+    logger: Logger,
   ): Promise<void> {
     const eventName: string = event.constructor.name;
 
@@ -90,10 +90,10 @@ export class DomainEvents {
       await Promise.all(
         handlers.map((handler) => {
           logger.debug(
-            `[${handler.constructor.name}] handling ${event.constructor.name} ${event.aggregateId}`
+            `[${handler.constructor.name}] handling ${event.constructor.name} ${event.aggregateId}`,
           );
           return handler.handle(event);
-        })
+        }),
       );
     }
   }

@@ -1,4 +1,4 @@
-import { DataSource, EntitySchema } from "typeorm";
+import { DataSource, EntitySchema } from 'typeorm';
 
 export const injectRepositoryFactory =
   (datasource: DataSource) => (entity: EntitySchema) => {
@@ -6,7 +6,7 @@ export const injectRepositoryFactory =
     return (
       target: (...args: any[]) => any,
       propertyKey: string,
-      descriptor: PropertyDescriptor
+      descriptor: PropertyDescriptor,
     ) => {
       const consWithRepository = (...params) => {
         return descriptor.value.call(this, ...params, repository);

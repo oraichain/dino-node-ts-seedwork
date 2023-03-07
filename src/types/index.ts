@@ -1,2 +1,2 @@
-export * from "./Class";
-export * from "./ExcludeFunctionProps";
+export * from './Class';
+export * from './ExcludeFunctionProps';

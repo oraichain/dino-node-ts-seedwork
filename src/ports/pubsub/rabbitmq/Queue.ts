@@ -1,7 +1,7 @@
-import { ArbFunction, FutureArbFnc } from "@type_util/function";
-import { BrokerComponent } from "./BrokerComponent";
-import { ConnectionSettings } from "./ConnectionSetting";
-import { Exchange } from "./Exchange";
+import { ArbFunction, FutureArbFnc } from '@type_util/function';
+import { BrokerComponent } from './BrokerComponent';
+import { ConnectionSettings } from './ConnectionSetting';
+import { Exchange } from './Exchange';
 
 export class Queue extends BrokerComponent {
   isAutoDeleted: boolean;
@@ -53,7 +53,7 @@ export class Queue extends BrokerComponent {
         },
       });
     } else {
-      throw Error("[PARAM_NOT_VALID] Cannot initialize Queue");
+      throw Error('[PARAM_NOT_VALID] Cannot initialize Queue');
     }
     this.setIsDurable(isDurable);
     this.isExclusive = isExclusive;
@@ -65,7 +65,7 @@ export class Queue extends BrokerComponent {
     aConnSettings: ConnectionSettings,
     aName: string,
     onSetupFinish: FutureArbFnc,
-    onSetupError: FutureArbFnc
+    onSetupError: FutureArbFnc,
   ) {
     /*
      * Answers a new instance of a Queue with the name a_name. The underlying
@@ -92,7 +92,7 @@ export class Queue extends BrokerComponent {
     isExclusive: boolean,
     isAutoDeleted: boolean,
     onSetupFinish: FutureArbFnc,
-    onSetupError: FutureArbFnc
+    onSetupError: FutureArbFnc,
   ) {
     return new Queue({
       aName,
@@ -111,7 +111,7 @@ export class Queue extends BrokerComponent {
     aConnSettings: ConnectionSettings,
     aName: string,
     onSetupFinish: FutureArbFnc,
-    onSetupError: FutureArbFnc
+    onSetupError: FutureArbFnc,
   ) {
     /**
      * Creates a new instance of a Queue with the given name. The underlying
@@ -138,7 +138,7 @@ export class Queue extends BrokerComponent {
     aConnSettings: ConnectionSettings,
     aName: string,
     onSetupFinish: FutureArbFnc,
-    onSetupError: FutureArbFnc
+    onSetupError: FutureArbFnc,
   ) {
     /**
 
@@ -168,7 +168,7 @@ export class Queue extends BrokerComponent {
     isAutoDeleted: boolean,
     isExclusive: boolean,
     cb: ArbFunction = null,
-    onSetupError?: ArbFunction
+    onSetupError?: ArbFunction,
   ) {
     // this.logger.info(
     //   `[QUEUE] Factory a QUEUE is durable ${isDurable}, is_auto_deleted ${isAutoDeleted}, is_exclusive ${isExclusive}`
@@ -179,7 +179,7 @@ export class Queue extends BrokerComponent {
       isExclusive,
       isAutoDeleted,
       onSetupFinish: async (queue: Queue) => {
-        await Queue.bindQueue(queue, anExchange, "");
+        await Queue.bindQueue(queue, anExchange, '');
         queue.setQueueIsReady(true);
         if (cb) {
           await cb(queue);
@@ -197,7 +197,7 @@ export class Queue extends BrokerComponent {
     aName: string,
     isDurable: boolean,
     isAutoDeleted: boolean,
-    isExclusive: boolean
+    isExclusive: boolean,
   ) {
     const queue = await new Promise((resolve, reject) => {
       Queue.factoryExchangeSubcriber(
@@ -211,7 +211,7 @@ export class Queue extends BrokerComponent {
         },
         async (error) => {
           reject(error);
-        }
+        },
       );
     });
     return queue;
@@ -224,7 +224,7 @@ export class Queue extends BrokerComponent {
     isAutoDeleted: boolean,
     isExclusive: boolean,
     cb: ArbFunction = null,
-    onSetupError?: ArbFunction
+    onSetupError?: ArbFunction,
   ) {
     /*
      * Answers a new instance of a Queue that is bound to an_exchange, and
@@ -239,13 +239,13 @@ export class Queue extends BrokerComponent {
      */
     return this.factoryExchangeSubcriberWithRoutingKeysWithName(
       anExchange,
-      "",
+      '',
       routingKeys,
       isDurable,
       isAutoDeleted,
       isExclusive,
       cb,
-      onSetupError
+      onSetupError,
     );
   }
 
@@ -254,15 +254,15 @@ export class Queue extends BrokerComponent {
     routingKeys: string[],
     isDurable: boolean,
     isAutoDeleted: boolean,
-    isExclusive: boolean
+    isExclusive: boolean,
   ) {
     return this.asyncFactoryExchangeSubcriberWithRoutingKeysWithName(
       anExchange,
-      "",
+      '',
       routingKeys,
       isDurable,
       isAutoDeleted,
-      isExclusive
+      isExclusive,
     );
   }
 
@@ -274,7 +274,7 @@ export class Queue extends BrokerComponent {
     isAutoDeleted: boolean,
     isExclusive: boolean,
     cb: ArbFunction = null,
-    onSetupError?: ArbFunction
+    onSetupError?: ArbFunction,
   ): Queue {
     /**
      * Answers a new instance of a Queue that is bound to an exchange and
@@ -303,12 +303,12 @@ export class Queue extends BrokerComponent {
       onSetupError,
       onSetupFinish: async (queue: Queue) => {
         if (routingKeys.length === 0) {
-          await Queue.bindQueue(queue, anExchange, "");
+          await Queue.bindQueue(queue, anExchange, '');
         } else {
           await Promise.all(
             routingKeys.map((routingKey) =>
-              Queue.bindQueue(queue, anExchange, routingKey)
-            )
+              Queue.bindQueue(queue, anExchange, routingKey),
+            ),
           );
         }
         queue.setQueueIsReady(true);
@@ -328,7 +328,7 @@ export class Queue extends BrokerComponent {
     routingKeys: string[],
     isDurable: boolean,
     isAutoDeleted: boolean,
-    isExclusive: boolean
+    isExclusive: boolean,
   ) {
     const queue: Queue = await new Promise((resolve, reject) => {
       this.factoryExchangeSubcriberWithRoutingKeysWithName(
@@ -343,7 +343,7 @@ export class Queue extends BrokerComponent {
         },
         async (error) => {
           reject(error);
-        }
+        },
       );
     });
     return queue;
@@ -353,14 +353,14 @@ export class Queue extends BrokerComponent {
     aQueue: Queue,
     anExchange: Exchange,
     routingKey: string,
-    cb: ArbFunction = null
+    cb: ArbFunction = null,
   ) {
     const channel = aQueue.getChannel();
     if (channel) {
       await channel.bindQueue(
         aQueue.getName(),
         anExchange.getName(),
-        routingKey
+        routingKey,
       );
       cb?.(aQueue);
     }

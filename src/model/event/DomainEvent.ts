@@ -1,11 +1,11 @@
-import { AssertionConcern } from "@logic/AssertionConcern";
-import { UUID } from "../valueObjects/UUID";
+import { AssertionConcern } from '@logic/AssertionConcern';
+import { UUID } from '../valueObjects/UUID';
 
 export type DomainEventProps<T> = Omit<
   T,
-  "id" | "correlationId" | "dateOccurred"
+  'id' | 'correlationId' | 'dateOccurred'
 > &
-  Omit<DomainEvent, "id" | "correlationId" | "dateOccurred"> & {
+  Omit<DomainEvent, 'id' | 'correlationId' | 'dateOccurred'> & {
     correlationId?: string;
     dateOccurred?: number;
   };
@@ -33,7 +33,7 @@ export abstract class DomainEvent extends AssertionConcern {
     super();
     this.assertArgumentNotNull({
       aValue: props,
-      aMessage: "DomainEvent props should not be empty",
+      aMessage: 'DomainEvent props should not be empty',
     });
     this.id = UUID.generate().toString();
     this.aggregateId = props.aggregateId;

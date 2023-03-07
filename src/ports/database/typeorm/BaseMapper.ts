@@ -1,15 +1,15 @@
 /* eslint-disable new-cap */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Identifier } from "@model/Identifier";
-import { AggregateRoot } from "@model/Aggregate";
-import { CreateEntityProps } from "@model/Entity";
-import { DateVO } from "@model/valueObjects/Date";
-import { TypeormEntityBase } from "./BaseEntity";
+import { Identifier } from '@model/Identifier';
+import { AggregateRoot } from '@model/Aggregate';
+import { CreateEntityProps } from '@model/Entity';
+import { DateVO } from '@model/valueObjects/Date';
+import { TypeormEntityBase } from './BaseEntity';
 
 export type OrmEntityProps<OrmEntity> = Omit<
   OrmEntity,
-  "id" | "createdAt" | "updatedAt"
+  'id' | 'createdAt' | 'updatedAt'
 >;
 
 export interface EntityProps<IdentifierType extends Identifier<any>> {
@@ -20,21 +20,21 @@ export abstract class OrmMapper<
   IdentifierRawType extends string | number,
   IdentifierType extends Identifier<IdentifierRawType>,
   Entity extends AggregateRoot<IdentifierType>,
-  OrmEntity extends TypeormEntityBase<IdentifierRawType>
+  OrmEntity extends TypeormEntityBase<IdentifierRawType>,
 > {
   constructor(
     private entityConstructor: new (
-      props: CreateEntityProps<IdentifierType>
+      props: CreateEntityProps<IdentifierType>,
     ) => Entity,
-    private ormEntityConstructor: new (props: any) => OrmEntity
+    private ormEntityConstructor: new (props: any) => OrmEntity,
   ) {}
 
   protected abstract toDomainProps(
-    ormEntity: OrmEntity
+    ormEntity: OrmEntity,
   ): Promise<EntityProps<IdentifierType>>;
 
   protected abstract toOrmProps(
-    entity: Entity
+    entity: Entity,
   ): Promise<OrmEntityProps<OrmEntity>>;
 
   async toDomainEntity(ormEntity: OrmEntity): Promise<Entity> {

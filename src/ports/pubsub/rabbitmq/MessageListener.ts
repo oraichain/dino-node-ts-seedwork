@@ -1,4 +1,4 @@
-import { MessageType } from "./MessageType";
+import { MessageType } from './MessageType';
 
 export abstract class MessageListener {
   /*
@@ -39,7 +39,7 @@ export abstract class MessageListener {
     aTimeStamp: Date,
     aMessage: Buffer,
     aDeliveryTag: number,
-    isRedelivery: boolean
+    isRedelivery: boolean,
   ): Promise<void>;
   /**
    * Handles a binary message. If any MessageException is thrown by

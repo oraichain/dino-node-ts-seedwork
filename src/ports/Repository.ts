@@ -5,7 +5,7 @@
     in a respective module/use case.
 */
 
-import { Identifier } from "@model/Identifier";
+import { Identifier } from '@model/Identifier';
 
 export type QueryParams = any;
 
@@ -34,7 +34,7 @@ export interface FindMany<Entity> {
 }
 
 export interface OrderBy {
-  [key: number]: "ASC" | "DESC";
+  [key: number]: 'ASC' | 'DESC';
 }
 
 export interface PaginationMeta {
@@ -58,7 +58,7 @@ export interface DataWithPaginationMeta<T> {
 
 export interface FindManyPaginated<Entity> {
   findManyPaginated?(
-    options: FindManyPaginatedParams
+    options: FindManyPaginatedParams,
   ): Promise<DataWithPaginationMeta<Entity[]>>;
 }
 

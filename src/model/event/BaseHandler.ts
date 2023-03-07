@@ -1,4 +1,4 @@
-import { DomainEvent, DomainEventClass, DomainEvents } from ".";
+import { DomainEvent, DomainEventClass, DomainEvents } from '.';
 
 export abstract class DomainEventHandler {
   constructor(private readonly event: DomainEventClass) {}

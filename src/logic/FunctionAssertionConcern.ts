@@ -1,4 +1,4 @@
-import { BaseException, IllegalArgumentException } from "./exceptions";
+import { BaseException, IllegalArgumentException } from './exceptions';
 
 export interface BasicAssertParam {
   aMessage?: string;
@@ -12,7 +12,7 @@ export function simpleHandleABoolean(
   aMessage?: string,
   exception?: BaseException,
   loc?: string[],
-  code?: string
+  code?: string,
 ) {
   if (aBoolean) {
     throw (

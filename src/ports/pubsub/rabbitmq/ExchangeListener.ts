@@ -1,12 +1,12 @@
-import { ConsoleDomainLogger } from "@ports/DomainLogger";
-import { ArbFunction } from "@type_util/function";
-import { EventHandlingTracker } from "../EventHandlingTracker";
-import { ConnectionSettings } from "./ConnectionSetting";
-import { Exchange } from "./Exchange";
-import { MessageConsumer } from "./MessageConsumer";
-import { MessageListener } from "./MessageListener";
-import { MessageType } from "./MessageType";
-import { Queue } from "./Queue";
+import { ConsoleDomainLogger } from '@ports/DomainLogger';
+import { ArbFunction } from '@type_util/function';
+import { EventHandlingTracker } from '../EventHandlingTracker';
+import { ConnectionSettings } from './ConnectionSetting';
+import { Exchange } from './Exchange';
+import { MessageConsumer } from './MessageConsumer';
+import { MessageListener } from './MessageListener';
+import { MessageType } from './MessageType';
+import { Queue } from './Queue';
 
 export class ExchangeListener {
   private messageConsumer?: MessageConsumer;
@@ -21,7 +21,7 @@ export class ExchangeListener {
   autoAck = false;
   isRetry = false;
   isExclusive = true;
-  label = "";
+  label = '';
   logger: ConsoleDomainLogger;
   eventHandlingTracker: EventHandlingTracker;
 
@@ -63,7 +63,7 @@ export class ExchangeListener {
   @return str
   */
   exchangeName(): string {
-    throw Error("This method need to be overridden");
+    throw Error('This method need to be overridden');
   }
 
   filteredDispatch(
@@ -72,9 +72,9 @@ export class ExchangeListener {
     aTimeStamp: Date,
     aMessage: string,
     aDeliveryTag: number,
-    isRedelivery: boolean
+    isRedelivery: boolean,
   ): Promise<void> {
-    throw Error("This method need to be overridden");
+    throw Error('This method need to be overridden');
   }
 
   /*
@@ -82,7 +82,7 @@ export class ExchangeListener {
   @return: List[str]
   */
   listenTo(): string[] {
-    throw Error("This method need to be overridden");
+    throw Error('This method need to be overridden');
   }
   /*
   Answers the str name of the queue I listen to. By
@@ -91,7 +91,7 @@ export class ExchangeListener {
   @return: str
   */
   queueName(): string {
-    throw Error("This method need to be overridden");
+    throw Error('This method need to be overridden');
   }
 
   setExchange(anExchange: Exchange) {
@@ -112,17 +112,17 @@ export class ExchangeListener {
       this.exchangeName(),
       this.isDurable,
       (async (exchange: Exchange) => {
-        this.logger.info("Exchange declaring finished");
+        this.logger.info('Exchange declaring finished');
         const queue = Queue.factoryExchangeSubcriber(
           exchange,
           this.queueName(),
           this.queueDurable,
           this.queueAutoDeleted,
           this.isExclusive,
-          this.registerConsumer.bind(this)
+          this.registerConsumer.bind(this),
         );
         this.setQueue(queue);
-      }).bind(this)
+      }).bind(this),
     );
     this.setExchange(exchange);
   }
@@ -132,7 +132,7 @@ export class ExchangeListener {
     aTimeStamp: Date,
     aMessage: Buffer,
     aDeliveryTag: number,
-    isRedelivery: boolean
+    isRedelivery: boolean,
   ) {
     const idempotentHandle = async (isHandled: boolean) => {
       if (!isHandled) {
@@ -142,19 +142,19 @@ export class ExchangeListener {
           aTimeStamp,
           aMessage.toString(), // utf8 decode
           aDeliveryTag,
-          isRedelivery
+          isRedelivery,
         );
         await this.eventHandlingTracker.markNotifAsHandled(aMessageId);
       }
     };
     const isEventHandled = await this.eventHandlingTracker.checkIfNotifHandled(
-      aMessageId
+      aMessageId,
     );
     await idempotentHandle(isEventHandled);
   }
 
   async registerConsumer(queue: Queue) {
-    this.logger.info("Queue declaring finished, now register consumer");
+    this.logger.info('Queue declaring finished, now register consumer');
     const idempotentHandleDispatch = this.idempotentHandleDispatch.bind(this);
     class MessageListenerAdapter extends MessageListener {
       handleMessage(
@@ -163,7 +163,7 @@ export class ExchangeListener {
         aTimeStamp: Date,
         aMessage: Buffer,
         aDeliveryTag: number,
-        isRedelivery: boolean
+        isRedelivery: boolean,
       ) {
         return idempotentHandleDispatch(
           aType,
@@ -171,7 +171,7 @@ export class ExchangeListener {
           aTimeStamp,
           aMessage,
           aDeliveryTag,
-          isRedelivery
+          isRedelivery,
         );
       }
     }
@@ -179,14 +179,14 @@ export class ExchangeListener {
       queue,
       this.autoAck,
       this.isRetry,
-      this.label
+      this.label,
     );
     this.setMessageConsumer(messageConsumer);
     await messageConsumer.receiveOnly(
       this.listenTo(),
-      new MessageListenerAdapter(MessageType.TEXT)
+      new MessageListenerAdapter(MessageType.TEXT),
     );
-    this.logger.info("Message Consumer registered successfully");
+    this.logger.info('Message Consumer registered successfully');
     this.isReady = true;
     if (this.onReady) {
       this.onReady(this);

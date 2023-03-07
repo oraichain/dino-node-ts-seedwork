@@ -1,5 +1,5 @@
-import { v4 as uuidV4, validate } from "uuid";
-import { Identifier } from "../Identifier";
+import { v4 as uuidV4, validate } from 'uuid';
+import { Identifier } from '../Identifier';
 
 export class UUID extends Identifier<string> {
   /**
@@ -21,7 +21,7 @@ export class UUID extends Identifier<string> {
   protected validate(): void {
     this.assertStateTrue({
       aBoolean: validate(this.toValue()),
-      aMessage: "Incorrect UUID format",
+      aMessage: 'Incorrect UUID format',
     });
   }
 }

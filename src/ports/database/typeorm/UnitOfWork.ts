@@ -1,8 +1,8 @@
-import { DataSource, EntityTarget, QueryRunner, Repository } from "typeorm";
-import { IsolationLevel } from "typeorm/driver/types/IsolationLevel";
-import { Err, Result } from "oxide.ts/dist";
-import { Logger } from "@ports/Logger";
-import { UnitOfWorkPort } from "@ports/uow";
+import { DataSource, EntityTarget, QueryRunner, Repository } from 'typeorm';
+import { IsolationLevel } from 'typeorm/driver/types/IsolationLevel';
+import { Err, Result } from 'oxide.ts/dist';
+import { Logger } from '@ports/Logger';
+import { UnitOfWorkPort } from '@ports/uow';
 
 /**
  * Keep in mind that this is a naive implementation
@@ -19,7 +19,7 @@ import { UnitOfWorkPort } from "@ports/uow";
 export class TypeormUnitOfWork implements UnitOfWorkPort {
   constructor(
     private readonly logger: Logger,
-    private readonly datasource: DataSource
+    private readonly datasource: DataSource,
   ) {}
 
   private queryRunners: Map<string, QueryRunner> = new Map();
@@ -28,7 +28,7 @@ export class TypeormUnitOfWork implements UnitOfWorkPort {
     const queryRunner = this.queryRunners.get(correlationId);
     if (!queryRunner) {
       throw new Error(
-        'Query runner not found. Incorrect correlationId or transaction is not started. To start a transaction wrap operations in a "execute" method.'
+        'Query runner not found. Incorrect correlationId or transaction is not started. To start a transaction wrap operations in a "execute" method.',
       );
     }
     return queryRunner;
@@ -36,7 +36,7 @@ export class TypeormUnitOfWork implements UnitOfWorkPort {
 
   getOrmRepository<Entity>(
     entity: EntityTarget<Entity>,
-    correlationId: string
+    correlationId: string,
   ): Repository<Entity> {
     const queryRunner = this.getQueryRunner(correlationId);
     return queryRunner.manager.getRepository(entity);
@@ -51,10 +51,10 @@ export class TypeormUnitOfWork implements UnitOfWorkPort {
   async execute<T>(
     correlationId: string,
     callback: () => Promise<T>,
-    options?: { isolationLevel: IsolationLevel }
+    options?: { isolationLevel: IsolationLevel },
   ): Promise<T> {
     if (!correlationId) {
-      throw new Error("Correlation ID must be provided");
+      throw new Error('Correlation ID must be provided');
     }
     this.logger.setContext(`${this.constructor.name}:${correlationId}`);
     const queryRunner = this.datasource.createQueryRunner();
@@ -68,7 +68,7 @@ export class TypeormUnitOfWork implements UnitOfWorkPort {
       if ((result as unknown as Result<T, Error>)?.isErr?.()) {
         await this.rollbackTransaction(
           correlationId,
-          (result as unknown as Err<Error>).unwrapErr()
+          (result as unknown as Err<Error>).unwrapErr(),
         );
         return result;
       }
@@ -92,7 +92,7 @@ export class TypeormUnitOfWork implements UnitOfWorkPort {
     try {
       await queryRunner.rollbackTransaction();
       this.logger.debug(
-        `[Transaction rolled back] ${(error as Error).message}`
+        `[Transaction rolled back] ${(error as Error).message}`,
       );
     } finally {
       await this.finish(correlationId);

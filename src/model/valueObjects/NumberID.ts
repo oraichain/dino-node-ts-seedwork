@@ -1,4 +1,4 @@
-import { Identifier } from "../Identifier";
+import { Identifier } from '../Identifier';
 
 export class NID extends Identifier<number> {
   /**

@@ -1,1 +1,1 @@
-export * from "./final";
+export * from './final';

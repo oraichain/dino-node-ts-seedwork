@@ -1,6 +1,6 @@
-import { AssertionConcern } from "@logic/AssertionConcern";
-import { Identifier } from "./Identifier";
-import { DateVO } from "./valueObjects/Date";
+import { AssertionConcern } from '@logic/AssertionConcern';
+import { Identifier } from './Identifier';
+import { DateVO } from './valueObjects/Date';
 
 export interface CreateEntityProps<IdentifierType extends Identifier<any>> {
   id?: IdentifierType;
@@ -8,7 +8,7 @@ export interface CreateEntityProps<IdentifierType extends Identifier<any>> {
 }
 
 export abstract class Entity<
-  IdentifierType extends Identifier<any>
+  IdentifierType extends Identifier<any>,
 > extends AssertionConcern {
   protected readonly _id: IdentifierType;
   protected updatedAt?: DateVO;

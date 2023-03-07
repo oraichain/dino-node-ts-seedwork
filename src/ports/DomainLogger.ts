@@ -1,4 +1,4 @@
-import { Logger as BaseLogger } from "./Logger";
+import { Logger as BaseLogger } from './Logger';
 
 export class ConsoleDomainLogger implements BaseLogger {
   private _context: string;
@@ -13,7 +13,7 @@ export class ConsoleDomainLogger implements BaseLogger {
 
   error(message: string, trace?: unknown, ...meta: unknown[]): void {
     console.error(
-      `${this.formatMessageWithContext(message)} ${trace || "[No trace info]"}`
+      `${this.formatMessageWithContext(message)} ${trace || '[No trace info]'}`,
     );
   }
 

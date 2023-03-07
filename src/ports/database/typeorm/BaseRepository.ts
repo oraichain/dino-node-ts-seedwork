@@ -3,20 +3,20 @@ import {
   ObjectLiteral,
   Repository,
   FindOptionsOrder,
-} from "typeorm";
+} from 'typeorm';
 import {
   QueryParams,
   FindManyPaginatedParams,
   RepositoryPort,
   DataWithPaginationMeta,
-} from "@ports/Repository";
-import { DomainEvents } from "@model/event/DomainEvents";
-import { Logger } from "@ports/Logger";
-import { OrmMapper } from "./BaseMapper";
-import { AggregateRoot } from "@model/Aggregate";
-import { Identifier } from "@model/Identifier";
-import { NotFoundException } from "@logic/exceptions";
-import { TypeormEntityBase } from "./BaseEntity";
+} from '@ports/Repository';
+import { DomainEvents } from '@model/event/DomainEvents';
+import { Logger } from '@ports/Logger';
+import { OrmMapper } from './BaseMapper';
+import { AggregateRoot } from '@model/Aggregate';
+import { Identifier } from '@model/Identifier';
+import { NotFoundException } from '@logic/exceptions';
+import { TypeormEntityBase } from './BaseEntity';
 
 export type WhereCondition<OrmEntity> =
   | FindOptionsWhere<OrmEntity>[]
@@ -28,7 +28,7 @@ export abstract class TypeormRepositoryBase<
   IdentifierRawType extends string | number,
   IdentifierType extends Identifier<IdentifierRawType>,
   Entity extends AggregateRoot<IdentifierType>,
-  OrmEntity extends TypeormEntityBase<IdentifierRawType>
+  OrmEntity extends TypeormEntityBase<IdentifierRawType>,
 > implements RepositoryPort<Entity>
 {
   protected constructor(
@@ -39,7 +39,7 @@ export abstract class TypeormRepositoryBase<
       Entity,
       OrmEntity
     >,
-    protected readonly logger: Logger
+    protected readonly logger: Logger,
   ) {}
 
   /**
@@ -51,7 +51,7 @@ export abstract class TypeormRepositoryBase<
   protected tableName = this.repository.metadata.tableName;
 
   protected abstract prepareQuery(
-    params: QueryParams
+    params: QueryParams,
   ): FindOptionsWhere<OrmEntity>;
 
   async save(entity: Entity): Promise<Entity> {
@@ -60,10 +60,10 @@ export abstract class TypeormRepositoryBase<
     await DomainEvents.publishEvents(
       entity.id(),
       this.logger,
-      this.correlationId
+      this.correlationId,
     );
     this.logger.debug(
-      `[${entity.constructor.name}] persisted ${entity.id.toString()}`
+      `[${entity.constructor.name}] persisted ${entity.id.toString()}`,
     );
     return this.mapper.toDomainEntity(result);
   }
@@ -74,7 +74,7 @@ export abstract class TypeormRepositoryBase<
     await DomainEvents.publishEvents(
       entity.id(),
       this.logger,
-      this.correlationId
+      this.correlationId,
     );
     this.logger.debug(`[${entity.constructor.name}] persisted ${result}`);
     return this.mapper.toDomainEntity(result);
@@ -84,19 +84,23 @@ export abstract class TypeormRepositoryBase<
     const ormEntities = await Promise.all(
       entities.map(async (entity) => {
         return await this.mapper.toOrmEntity(entity);
-      })
+      }),
     );
     const result = await this.repository.save(ormEntities);
     await Promise.all(
       entities.map((entity) =>
-        DomainEvents.publishEvents(entity.id(), this.logger, this.correlationId)
-      )
+        DomainEvents.publishEvents(
+          entity.id(),
+          this.logger,
+          this.correlationId,
+        ),
+      ),
     );
     this.logger.debug(
-      `[${entities}]: persisted ${entities.map((entity) => entity.id)}`
+      `[${entities}]: persisted ${entities.map((entity) => entity.id)}`,
     );
     return await Promise.all(
-      result.map(async (entity) => await this.mapper.toDomainEntity(entity))
+      result.map(async (entity) => await this.mapper.toDomainEntity(entity)),
     );
   }
 
@@ -135,7 +139,7 @@ export abstract class TypeormRepositoryBase<
     });
 
     return Promise.all(
-      result.map(async (item) => await this.mapper.toDomainEntity(item))
+      result.map(async (item) => await this.mapper.toDomainEntity(item)),
     );
   }
 
@@ -154,7 +158,7 @@ export abstract class TypeormRepositoryBase<
 
     const result: DataWithPaginationMeta<Entity[]> = {
       data: await Promise.all(
-        data.map(async (item) => await this.mapper.toDomainEntity(item))
+        data.map(async (item) => await this.mapper.toDomainEntity(item)),
       ),
       count,
       limit: pagination?.limit,
@@ -169,10 +173,10 @@ export abstract class TypeormRepositoryBase<
     await DomainEvents.publishEvents(
       entity.id(),
       this.logger,
-      this.correlationId
+      this.correlationId,
     );
     this.logger.debug(
-      `[${entity.constructor.name}] deleted ${entity.id().toValue()}`
+      `[${entity.constructor.name}] deleted ${entity.id().toValue()}`,
     );
     return entity;
   }

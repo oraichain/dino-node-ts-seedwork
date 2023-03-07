@@ -1,5 +1,5 @@
-import { AssertionConcern } from "@logic/AssertionConcern";
-import { nanoid } from "nanoid";
+import { AssertionConcern } from '@logic/AssertionConcern';
+import { nanoid } from 'nanoid';
 
 export class Command<Props> extends AssertionConcern {
   /**
@@ -23,8 +23,8 @@ export class Command<Props> extends AssertionConcern {
     super();
     this.assertArgumentNotNull({
       aValue: props,
-      aMessage: "Command props should not be empty",
-      loc: ["command"],
+      aMessage: 'Command props should not be empty',
+      loc: ['command'],
     });
     this.correlationId = correlationId || nanoid(8);
     this.props = props;

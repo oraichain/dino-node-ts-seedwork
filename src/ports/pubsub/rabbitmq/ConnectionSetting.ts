@@ -10,7 +10,7 @@ export class ConnectionSettings {
     port?: number,
     username?: string,
     password?: string,
-    vhost?: string
+    vhost?: string,
   ) {
     // TODO: Validation
     this.hostname = hostname;
@@ -25,14 +25,14 @@ export class ConnectionSettings {
     port?: number,
     username?: string,
     password?: string,
-    vhost?: string
+    vhost?: string,
   ) {
     return new ConnectionSettings(hostname, port, username, password, vhost);
   }
 
   toUrl() {
-    const hostPortPath = `${this.hostname}${this.port ? `:${this.port}` : ""}/${
-      this.vhost || "/"
+    const hostPortPath = `${this.hostname}${this.port ? `:${this.port}` : ''}/${
+      this.vhost || '/'
     }`;
     if (this.hasCredential()) {
       return `amqp://${this.username}:${this.password}@${hostPortPath}`;
