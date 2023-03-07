@@ -1,7 +1,7 @@
 import { AbstractKeyValueRepository } from "@ports/database/keyvalue/KeyValueRepository";
 import { EventHandlingTracker } from "../EventHandlingTracker";
 
-export class KeyValueEventHandlingTracker implements EventHandlingTracker {
+export class KVEventHandlingTracker implements EventHandlingTracker {
   private keyValueStore: AbstractKeyValueRepository
 
   constructor(keyValueStore: AbstractKeyValueRepository, prefix: string) {
@@ -10,7 +10,7 @@ export class KeyValueEventHandlingTracker implements EventHandlingTracker {
   }
 
   static factory(keyValueStore: AbstractKeyValueRepository, prefix: string) {
-    return new KeyValueEventHandlingTracker(keyValueStore, prefix)
+    return new KVEventHandlingTracker(keyValueStore, prefix)
   }
 
   async checkIfNotifHandled(aMessageId: string): Promise<boolean> {

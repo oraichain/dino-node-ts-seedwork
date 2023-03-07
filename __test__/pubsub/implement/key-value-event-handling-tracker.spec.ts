@@ -1,8 +1,8 @@
-import { KeyValueEventHandlingTracker } from "@ports/pubsub/implement/RedisEventHandlingTracker"
+import { KVEventHandlingTracker } from "@ports/pubsub/implement/KVEventHandlingTracker"
 import { MockKeyValueRepository } from "../mock/MockKeyValueRepository"
 
 describe("KeyValueEventHandlingTracker", () => {
-  const keyValueEventHandlingTracker = KeyValueEventHandlingTracker.factory(new MockKeyValueRepository(), "mock_prefix")
+  const keyValueEventHandlingTracker = KVEventHandlingTracker.factory(new MockKeyValueRepository(), "mock_prefix")
   it("Test key value event handling method", async () => {
     const mockEventId = "mock_event_id"
     const isFinish = await keyValueEventHandlingTracker.checkIfNotifHandled(mockEventId)

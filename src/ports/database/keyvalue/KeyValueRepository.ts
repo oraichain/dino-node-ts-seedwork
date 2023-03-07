@@ -1,6 +1,9 @@
 export abstract class AbstractKeyValueRepository {
   protected _prefix: string;
 
+  constructor(prefix?: string) {
+    this.setPrefix(prefix)
+  }
   setPrefix(prefix: string) {
     this._prefix = prefix
   }

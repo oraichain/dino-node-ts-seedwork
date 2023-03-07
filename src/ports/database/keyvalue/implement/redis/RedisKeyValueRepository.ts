@@ -6,7 +6,7 @@ export class RedisKeyValueRepository extends AbstractKeyValueRepository {
   private redisClient: RedisClient;
 
   constructor(redisClient: RedisClient, prefix: string) {
-    super(prefix);
+    super(prefix)
     this.redisClient = redisClient;
   }
 
