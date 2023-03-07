@@ -1,24 +1,24 @@
-import { AbstractKeyValueRepository } from "@ports/database/keyvalue/KeyValueRepository";
-import { EventHandlingTracker } from "../EventHandlingTracker";
+import { AbstractKeyValueRepository } from '@ports/database/keyvalue/KeyValueRepository';
+import { EventHandlingTracker } from '../EventHandlingTracker';
 
 export class KVEventHandlingTracker implements EventHandlingTracker {
-  private keyValueStore: AbstractKeyValueRepository
+  private keyValueStore: AbstractKeyValueRepository;
 
   constructor(keyValueStore: AbstractKeyValueRepository, prefix: string) {
-    keyValueStore.setPrefix(prefix)
-    this.keyValueStore = keyValueStore
+    keyValueStore.setPrefix(prefix);
+    this.keyValueStore = keyValueStore;
   }
 
   static factory(keyValueStore: AbstractKeyValueRepository, prefix: string) {
-    return new KVEventHandlingTracker(keyValueStore, prefix)
+    return new KVEventHandlingTracker(keyValueStore, prefix);
   }
 
   async checkIfNotifHandled(aMessageId: string): Promise<boolean> {
-    const v = await this.keyValueStore.get(aMessageId)
-    return (v && v.toString()) === 'true'
+    const v = await this.keyValueStore.get(aMessageId);
+    return (v && v.toString()) === 'true';
   }
 
   async markNotifAsHandled(aMessageId: string): Promise<void> {
-    await this.keyValueStore.set(aMessageId, 'true')
+    await this.keyValueStore.set(aMessageId, 'true');
   }
 }

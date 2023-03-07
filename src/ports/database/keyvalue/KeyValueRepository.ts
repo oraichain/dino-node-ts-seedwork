@@ -2,10 +2,10 @@ export abstract class AbstractKeyValueRepository {
   protected _prefix: string;
 
   constructor(prefix?: string) {
-    this.setPrefix(prefix)
+    this.setPrefix(prefix);
   }
   setPrefix(prefix: string) {
-    this._prefix = prefix
+    this._prefix = prefix;
   }
 
   keyWithPrefix(key: string): string {
