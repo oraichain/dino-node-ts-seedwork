@@ -40,7 +40,7 @@ export class RedisKeyValueRepository extends AbstractKeyValueRepository {
   }
 
   registerErrorHandler(handler: ArbFunction) {
-    this.onError = handler
+    this.onError = handler;
   }
 
   private finalizeKey(key: string) {
@@ -61,6 +61,6 @@ export class RedisKeyValueRepository extends AbstractKeyValueRepository {
   }
 
   emitOnClient(event: string, ...args: any[]) {
-    this.redisClient.emit(event, ...args)
+    this.redisClient.emit(event, ...args);
   }
 }
