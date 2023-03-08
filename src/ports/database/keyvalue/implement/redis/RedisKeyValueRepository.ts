@@ -1,12 +1,18 @@
+import { ConsoleDomainLogger } from '@ports/DomainLogger';
+import { ArbFunction } from '@type_util/function';
 import * as redis from 'redis';
 import { AbstractKeyValueRepository } from '../../KeyValueRepository';
 
 type RedisClient = ReturnType<typeof redis.createClient>;
 export class RedisKeyValueRepository extends AbstractKeyValueRepository {
   private redisClient: RedisClient;
+  private onError?: ArbFunction
+  logger: ConsoleDomainLogger
 
   constructor(redisClient: RedisClient, prefix?: string) {
     super(prefix);
+    this.logger = new ConsoleDomainLogger()
+    this.logger.setContext("RedisKyValueRepository")
     this.redisClient = redisClient;
   }
 
@@ -16,12 +22,21 @@ export class RedisKeyValueRepository extends AbstractKeyValueRepository {
     username: string,
     password: string,
     prefix?: string,
+    onError?: ArbFunction
   ) {
     const redisClient = redis.createClient({
       url: `redis://${username}:${password}@${host}:${port}`,
     });
     await redisClient.connect();
-    return new RedisKeyValueRepository(redisClient, prefix);
+    const instance = new RedisKeyValueRepository(redisClient, prefix);
+    instance.onError = onError
+    redisClient.on("error", instance.handleOnError)
+    return instance
+  }
+
+  private handleOnError(error: Error) {
+    this.onError?.(error)
+    this.logger.error("Error occurred ", error)
   }
 
   private finalizeKey(key: string) {

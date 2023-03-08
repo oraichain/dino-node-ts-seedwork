@@ -119,7 +119,7 @@ export class ExchangeListener {
           this.queueDurable,
           this.queueAutoDeleted,
           this.isExclusive,
-          this.registerConsumer.bind(this),
+          this.registerConsumer.bind(this)
         );
         this.setQueue(queue);
       }).bind(this),
