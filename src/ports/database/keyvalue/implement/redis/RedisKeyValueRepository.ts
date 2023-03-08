@@ -52,12 +52,24 @@ export class RedisKeyValueRepository extends AbstractKeyValueRepository {
     value: string | number,
     expiredSeconds?: number,
   ): Promise<void> {
-    await this.redisClient.set(this.finalizeKey(key), value, {
-      EX: expiredSeconds,
-    });
+    try {
+      await this.redisClient.set(this.finalizeKey(key), value, {
+        EX: expiredSeconds,
+      });
+    } catch (error) {
+      this.onError(
+        new Error(error + ` on setting key ${key} and value ${value}`),
+      );
+      throw error;
+    }
   }
   public get(key: string): Promise<string | number> {
-    return this.redisClient.get(this.finalizeKey(key));
+    try {
+      return this.redisClient.get(this.finalizeKey(key));
+    } catch (error) {
+      this.onError(new Error(error + ` on getting key ${key}`));
+      throw error;
+    }
   }
 
   emitOnClient(event: string, ...args: any[]) {
