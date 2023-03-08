@@ -57,17 +57,17 @@ export class RedisKeyValueRepository extends AbstractKeyValueRepository {
         EX: expiredSeconds,
       });
     } catch (error) {
-      this.onError(
+      this.handleOnError(
         new Error(error + ` on setting key ${key} and value ${value}`),
       );
       throw error;
     }
   }
-  public get(key: string): Promise<string | number> {
+  public async get(key: string): Promise<string | number> {
     try {
-      return this.redisClient.get(this.finalizeKey(key));
+      return await this.redisClient.get(this.finalizeKey(key));
     } catch (error) {
-      this.onError(new Error(error + ` on getting key ${key}`));
+      this.handleOnError(new Error(error + ` on getting key ${key}`));
       throw error;
     }
   }

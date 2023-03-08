@@ -9,7 +9,7 @@ export abstract class AbstractKeyValueRepository {
   }
 
   keyWithPrefix(key: string): string {
-    return this.prefix() ? key : `${this.prefix()}:${key}`;
+    return this.prefix() ? `${this.prefix()}:${key}` : key;
   }
 
   public prefix(): string {
