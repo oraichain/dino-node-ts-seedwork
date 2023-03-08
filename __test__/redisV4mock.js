@@ -8,6 +8,9 @@ const { promisify } = require("util");
 const client = redis.createClient();
 const setEx = promisify(client.setex).bind(client);
 const v4Client = {
+  eventSubscribes: {
+    "error": []
+  },
   connect: () => undefined,
   get: promisify(client.get).bind(client),
   set: (key, value) => promisify(client.set).bind(client)(key, value),
@@ -20,7 +23,18 @@ const v4Client = {
   expire: promisify(client.expire).bind(client),
   mGet: promisify(client.mget).bind(client),
   pSetEx: (key, ms, value) => setEx(key, ms / 1000, value),
-  on: () => undefined,
+  on: (event, cb) => {
+    if (!v4Client.eventSubscribes[event]) {
+      v4Client.eventSubscribes[event] = []
+    }
+    v4Client.eventSubscribes[event] = [...v4Client.eventSubscribes[event], cb]
+  },
+  emit: (eventName, ...args) => {
+    const subscribers = v4Client.eventSubscribes[eventName]
+    if (subscribers) {
+      subscribers.forEach(cb => cb(...args))
+    }
+  }
   // Add additional functions as needed...
 };
 exports.default = { ...redis, createClient: () => v4Client };

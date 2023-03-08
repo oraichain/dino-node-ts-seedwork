@@ -6,13 +6,13 @@ import { AbstractKeyValueRepository } from '../../KeyValueRepository';
 type RedisClient = ReturnType<typeof redis.createClient>;
 export class RedisKeyValueRepository extends AbstractKeyValueRepository {
   private redisClient: RedisClient;
-  private onError?: ArbFunction
-  logger: ConsoleDomainLogger
+  onError?: ArbFunction;
+  logger: ConsoleDomainLogger;
 
   constructor(redisClient: RedisClient, prefix?: string) {
     super(prefix);
-    this.logger = new ConsoleDomainLogger()
-    this.logger.setContext("RedisKyValueRepository")
+    this.logger = new ConsoleDomainLogger();
+    this.logger.setContext('RedisKyValueRepository');
     this.redisClient = redisClient;
   }
 
@@ -22,21 +22,25 @@ export class RedisKeyValueRepository extends AbstractKeyValueRepository {
     username: string,
     password: string,
     prefix?: string,
-    onError?: ArbFunction
+    onError?: ArbFunction,
   ) {
     const redisClient = redis.createClient({
       url: `redis://${username}:${password}@${host}:${port}`,
     });
     await redisClient.connect();
     const instance = new RedisKeyValueRepository(redisClient, prefix);
-    instance.onError = onError
-    redisClient.on("error", instance.handleOnError)
-    return instance
+    instance.onError = onError;
+    redisClient.on('error', instance.handleOnError.bind(instance));
+    return instance;
   }
 
   private handleOnError(error: Error) {
-    this.onError?.(error)
-    this.logger.error("Error occurred ", error)
+    this.onError?.(error);
+    this.logger.error('Error occurred ', error);
+  }
+
+  registerErrorHandler(handler: ArbFunction) {
+    this.onError = handler
   }
 
   private finalizeKey(key: string) {
@@ -54,5 +58,9 @@ export class RedisKeyValueRepository extends AbstractKeyValueRepository {
   }
   public get(key: string): Promise<string | number> {
     return this.redisClient.get(this.finalizeKey(key));
+  }
+
+  emitOnClient(event: string, ...args: any[]) {
+    this.redisClient.emit(event, ...args)
   }
 }
