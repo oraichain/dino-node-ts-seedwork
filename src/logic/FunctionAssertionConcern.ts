@@ -29,7 +29,7 @@ export function assertArgumentNotEmpty({
   code,
 }: { aString: string } & BasicAssertParam) {
   const isEmpty = aString == undefined || aString.length === 0;
-  this.simpleHandleABoolean(isEmpty, aMessage, exception, loc, code);
+  simpleHandleABoolean(isEmpty, aMessage, exception, loc, code);
 }
 
 export function assertArgumentNotNull({
@@ -40,7 +40,7 @@ export function assertArgumentNotNull({
   code,
 }: { aValue: any } & BasicAssertParam) {
   const isNull = aValue == undefined;
-  this.simpleHandleABoolean(isNull, aMessage, exception, loc, code);
+  simpleHandleABoolean(isNull, aMessage, exception, loc, code);
 }
 
 export function assertStateTrue({
@@ -50,7 +50,7 @@ export function assertStateTrue({
   loc,
   code,
 }: { aBoolean: boolean } & BasicAssertParam) {
-  this.simpleHandleABoolean(!aBoolean, aMessage, exception, loc, code);
+  simpleHandleABoolean(!aBoolean, aMessage, exception, loc, code);
 }
 
 export function assertStateFalse({
@@ -60,7 +60,7 @@ export function assertStateFalse({
   loc,
   code,
 }: { aBoolean: boolean } & BasicAssertParam) {
-  this.simpleHandleABoolean(aBoolean, aMessage, exception, loc, code);
+  simpleHandleABoolean(aBoolean, aMessage, exception, loc, code);
 }
 
 export function assertLargerThanOrEqual({
@@ -79,5 +79,5 @@ export function assertLargerThanOrEqual({
   const isNot =
     (!allowEqual && aNumber <= threshold) ||
     (allowEqual && aNumber < threshold);
-  this.simpleHandleABoolean(isNot, aMessage, exception, loc, code);
+  simpleHandleABoolean(isNot, aMessage, exception, loc, code);
 }
