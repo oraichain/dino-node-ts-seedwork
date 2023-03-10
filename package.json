@@ -1,6 +1,6 @@
 {
   "name": "dino-node-ts-seedwork",
-  "version": "1.0.38",
+  "version": "1.0.40",
   "description": "Node typescript seedwork",
   "homepage": "https://github.com/oraichain/dino-node-ts-seedwork",
   "main": "dist/src/index.js",
@@ -44,6 +44,7 @@
     "morgan": "^1.10.0",
     "nanoid": "^3.3.4",
     "oxide.ts": "^1.1.0",
+    "ramda": "^0.28.0",
     "redis": "^4.6.5",
     "reflect-metadata": "^0.1.13",
     "shallow-equal-object": "^1.1.1",
@@ -61,6 +62,7 @@
     "@types/jest": "^29.4.0",
     "@types/morgan": "^1.9.3",
     "@types/node": "^18.7.14",
+    "@types/ramda": "^0.28.23",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "5.52.0",
     "@typescript-eslint/parser": "5.52.0",
