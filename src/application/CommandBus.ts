@@ -17,6 +17,18 @@ export class CommandBus {
     };
   }
 
+  static factory() {
+    return new CommandBus();
+  }
+
+  public batchRegisterCommand(commandClses: Class<Command<any>>[]) {
+    return (handlerFactory: HandlerFactory) => {
+      commandClses.forEach((commandCls) => {
+        this.registerCommand(commandCls)(handlerFactory);
+      });
+    };
+  }
+
   public execute<CommandProps>(command: Command<CommandProps>) {
     const handlerFactory = this.commandMap.get(command.constructor.name);
     if (handlerFactory == null) {

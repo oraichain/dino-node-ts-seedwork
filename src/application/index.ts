@@ -1,4 +1,4 @@
 export * from './BaseCommand';
-export * from './BaseCommandBus';
+export * from './CommandBus';
 export * from './BaseCommandHandler';
 export * from './BaseQueryHandler';
