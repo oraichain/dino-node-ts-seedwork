@@ -1,4 +1,7 @@
-import { IllegalArgumentException, IllegalStateException } from '@logic/exceptions';
+import {
+  IllegalArgumentException,
+  IllegalStateException,
+} from '@logic/exceptions';
 import R from 'ramda';
 
 export class JsonMediaReader {
@@ -8,12 +11,14 @@ export class JsonMediaReader {
     try {
       this.representation = JSON.parse(aJson);
     } catch (error) {
-      throw new IllegalStateException({ message: "This media instance is not in json format" })
+      throw new IllegalStateException({
+        message: 'This media instance is not in json format',
+      });
     }
   }
 
   getRepresentation() {
-    return this.representation
+    return this.representation;
   }
 
   static read(aJson: string) {
