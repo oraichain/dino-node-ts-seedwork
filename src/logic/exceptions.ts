@@ -65,4 +65,22 @@ export class IllegalStateException extends BaseException {
   }
 }
 
-export class NotFoundException extends BaseException {}
+export class NotFoundException extends BaseException { }
+
+type ErrorHandler = (error: Error) => void;
+
+export const catchException = (errorHandler?: ErrorHandler) => {
+  return function(target: Object, propertyKey: string, descriptor: PropertyDescriptor) {
+    const originalMethod = descriptor.value
+    descriptor.value = function(...args: any[]) {
+      try {
+        const result = originalMethod.apply(this, ...args)
+        return result
+      } catch (error) {
+        console.error(`Error occur on method ${propertyKey}`)
+        errorHandler?.(error)
+      }
+    }
+    return descriptor
+  }
+}

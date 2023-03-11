@@ -1,3 +1,4 @@
+import { catchException } from '@logic/exceptions';
 import { ConsoleDomainLogger } from '@ports/DomainLogger';
 import { ArbFunction } from '@type_util/function';
 import { EventHandlingTracker } from '../EventHandlingTracker';
@@ -126,6 +127,7 @@ export class ExchangeListener {
     );
     this.setExchange(exchange);
   }
+  @catchException()
   private async idempotentHandleDispatch(
     aType: string,
     aMessageId: string,
