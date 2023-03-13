@@ -2,17 +2,17 @@ import { Class } from '@type_util/Class';
 import { Command } from './BaseCommand';
 import { CommandHandlerBase } from './BaseCommandHandler';
 
-interface HandlerFactory<CommandProps, ReturnType> {
-  (): CommandHandlerBase<CommandProps, ReturnType>;
+interface HandlerFactory<CommandT extends Command<any>, ReturnType> {
+  (): CommandHandlerBase<CommandT, ReturnType>;
 }
 
 export class CommandBus {
   private commandMap: Map<string, HandlerFactory<any, any>> = new Map();
 
-  public registerCommand<CommandProps, ReturnType>(
-    commandCls: Class<Command<CommandProps>>,
+  public registerCommand<CommandT extends Command<any>, ReturnType>(
+    commandCls: Class<CommandT>,
   ) {
-    return (handlerFactory: HandlerFactory<CommandProps, ReturnType>) => {
+    return (handlerFactory: HandlerFactory<CommandT, ReturnType>) => {
       this.commandMap.set(commandCls.name, handlerFactory);
     };
   }
@@ -29,7 +29,7 @@ export class CommandBus {
     };
   }
 
-  public execute<CommandProps>(command: Command<CommandProps>) {
+  public execute<CommandT extends Command<any>>(command: CommandT) {
     const handlerFactory = this.commandMap.get(command.constructor.name);
     if (handlerFactory == null) {
       return null;

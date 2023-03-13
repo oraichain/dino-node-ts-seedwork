@@ -2,31 +2,27 @@ import { UnitOfWorkPort } from '@ports/uow';
 import { Command } from './BaseCommand';
 
 export abstract class CommandHandlerBase<
-  CommandProps,
+  CommandT extends Command<any>,
   CommandHandlerReturnType,
 > {
-  abstract execute(
-    command: Command<CommandProps>,
-  ): Promise<CommandHandlerReturnType>;
+  abstract execute(command: CommandT): Promise<CommandHandlerReturnType>;
 }
 
 export abstract class UowCommandHandlerBase<
-  CommandProps,
+  CommandT extends Command<any>,
   CommandHandlerReturnType = unknown,
-> implements CommandHandlerBase<CommandProps, CommandHandlerReturnType>
+> implements CommandHandlerBase<CommandT, CommandHandlerReturnType>
 {
   constructor(protected readonly unitOfWork: UnitOfWorkPort) {}
 
   // Forces all command handlers to implement a handle method
-  abstract handle(
-    command: Command<CommandProps>,
-  ): Promise<CommandHandlerReturnType>;
+  abstract handle(command: CommandT): Promise<CommandHandlerReturnType>;
 
   /**
    * Execute a command as a UnitOfWork to include
    * everything in a single atomic database transaction
    */
-  execute(command: Command<CommandProps>): Promise<CommandHandlerReturnType> {
+  execute(command: CommandT): Promise<CommandHandlerReturnType> {
     return this.unitOfWork.execute(command.correlationId, async () =>
       this.handle(command),
     );

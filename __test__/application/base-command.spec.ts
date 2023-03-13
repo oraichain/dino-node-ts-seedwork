@@ -7,14 +7,14 @@ type CommandMock2Props = {}
 
 class CommandMock2 extends Command<CommandMock2Props> { }
 
-class SingleCommandHandler extends CommandHandlerBase<CommandMock1Props, null> {
-  execute(command: Command<CommandMock1Props>): Promise<null> {
+class SingleCommandHandler extends CommandHandlerBase<CommandMock1, null> {
+  execute(command: CommandMock1): Promise<null> {
     return null
   }
 }
 
-class MultiCommandHandler extends CommandHandlerBase<CommandMock1Props | CommandMock2Props, null> {
-  execute(command: Command<CommandMock1Props | CommandMock2Props>): Promise<null> {
+class MultiCommandHandler extends CommandHandlerBase<CommandMock1 | CommandMock2, null> {
+  execute(command: CommandMock1 | CommandMock2): Promise<null> {
     return null
   }
 }

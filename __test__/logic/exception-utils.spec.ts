@@ -5,10 +5,6 @@ describe("Exception utils", () => {
     const mockHandleException = jest.fn(() => null)
     const error = new Error("Mock error")
     class MockClass {
-      mockHandleException() {
-        return null
-      }
-
       @catchException(mockHandleException)
       alwayThrowErrorMethod() {
         throw error

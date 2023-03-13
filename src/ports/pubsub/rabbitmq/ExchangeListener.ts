@@ -127,7 +127,7 @@ export class ExchangeListener {
     );
     this.setExchange(exchange);
   }
-  @catchException()
+
   private async idempotentHandleDispatch(
     aType: string,
     aMessageId: string,

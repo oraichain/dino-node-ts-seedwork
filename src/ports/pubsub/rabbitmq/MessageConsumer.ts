@@ -161,7 +161,7 @@ export class MessageConsumer {
   }
   private nak(channel: Channel, message: Message, isRetry: boolean) {
     try {
-      if (this.isAutoAcknowledge()) {
+      if (!this.isAutoAcknowledge()) {
         channel.nack(message, false, isRetry);
         this.logger.info(`NACK message, is requeue ${isRetry}`);
       }

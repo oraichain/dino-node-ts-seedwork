@@ -65,22 +65,29 @@ export class IllegalStateException extends BaseException {
   }
 }
 
-export class NotFoundException extends BaseException { }
+export class NotFoundException extends BaseException {}
 
 type ErrorHandler = (error: Error) => void;
 
 export const catchException = (errorHandler?: ErrorHandler) => {
-  return function(target: Object, propertyKey: string, descriptor: PropertyDescriptor) {
-    const originalMethod = descriptor.value
-    descriptor.value = function(...args: any[]) {
+  return function (
+    target: any,
+    propertyKey: string,
+    descriptor: PropertyDescriptor,
+  ) {
+    const originalMethod = descriptor.value;
+    descriptor.value = function (...args: any[]) {
       try {
-        const result = originalMethod.apply(this, ...args)
-        return result
+        console.log('original method', originalMethod, args);
+        const result = originalMethod.apply(this, args);
+        return result;
       } catch (error) {
-        console.error(`Error occur on method ${propertyKey}`)
-        errorHandler?.(error)
+        console.info(`Error occur on method ${propertyKey}`, error);
+        errorHandler?.(error);
+        const isAsync = descriptor.value.constructor.name === 'AsyncFunction';
+        return isAsync ? Promise.resolve(null) : null;
       }
-    }
-    return descriptor
-  }
-}
+    };
+    return descriptor;
+  };
+};
